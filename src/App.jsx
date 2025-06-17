@@ -6,6 +6,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Profile from "./components/Profile/Profile";
 import Card from "./components/Card/Card";
 import Loan from "./components/Loan/Loan";
+import Logout from "./components/LogOut/Logout";
+
+
 function App() {
   return (
     <>
@@ -18,6 +21,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/card" element={<Card />} />
           <Route path="/loan" element={<Loan />} />
+          <Route path="/logout" element={<Logout />} />
         </Routes>
       </BrowserRouter>
     </>
