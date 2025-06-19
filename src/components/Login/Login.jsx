@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { login } from "../../features/auth/authSlice";
 
 const Login = () => {
   const initialState = {
@@ -8,7 +10,7 @@ const Login = () => {
   const [loginData, setLoginData] = useState(initialState);
   const [errors, setErrors] = useState({});
   const { email, password } = loginData;
-
+  const dispatch = useDispatch();
   const validate = () => {
     const newErrors = {};
 
@@ -39,7 +41,9 @@ const Login = () => {
     const validationErrors = validate();
     setErrors(validationErrors);
 
-    if (Object.keys(validationErrors).length === 0) {      alert("Inicio de sesión exitoso");
+    if (Object.keys(validationErrors).length === 0) {
+      dispatch(login(loginData));
+      alert("Inicio de sesión exitoso");
       setLoginData(initialState);
     }
   };

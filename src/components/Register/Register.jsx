@@ -1,5 +1,7 @@
 import { useState } from "react";
-import "./Register.css"; 
+import "./Register.css";
+import { register } from "../../features/auth/authSlice";
+import { useDispatch } from "react-redux";
 const Register = () => {
   const initialState = {
     fullName: "",
@@ -15,6 +17,7 @@ const Register = () => {
 
   const [registerData, setRegisterData] = useState(initialState);
   const [errors, setErrors] = useState({});
+  const dispatch = useDispatch();
 
   const validate = () => {
     const newErrors = {};
@@ -29,7 +32,9 @@ const Register = () => {
     if (!registerData.email.trim()) {
       newErrors.email = "El email es obligatorio.";
     } else if (
-      !/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(registerData.email)
+      !/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(
+        registerData.email
+      )
     ) {
       newErrors.email = "Ingrese un email válido.";
     }
@@ -37,7 +42,9 @@ const Register = () => {
     if (!registerData.password) {
       newErrors.password = "La contraseña es obligatoria.";
     } else if (
-      !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/.test(registerData.password)
+      !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/.test(
+        registerData.password
+      )
     ) {
       newErrors.password =
         "Mínimo 8 caracteres, una mayúscula, una minúscula y un número.";
@@ -91,6 +98,7 @@ const Register = () => {
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
+      dispatch(register(registerData));
       alert("Registro exitoso");
       setRegisterData(initialState);
     }
@@ -187,7 +195,9 @@ const Register = () => {
           placeholder="Ingrese su dirección"
           required
         />
-        {errors.address && <span style={{ color: "red" }}>{errors.address}</span>}
+        {errors.address && (
+          <span style={{ color: "red" }}>{errors.address}</span>
+        )}
       </label>
       <button type="submit">Enviar</button>
     </form>
