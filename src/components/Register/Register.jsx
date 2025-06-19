@@ -2,6 +2,8 @@ import { useState } from "react";
 import "./Register.css";
 import { register } from "../../features/auth/authSlice";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 const Register = () => {
   const initialState = {
     fullName: "",
@@ -18,7 +20,7 @@ const Register = () => {
   const [registerData, setRegisterData] = useState(initialState);
   const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const validate = () => {
     const newErrors = {};
 
@@ -101,14 +103,16 @@ const Register = () => {
       dispatch(register(registerData));
       alert("Registro exitoso");
       setRegisterData(initialState);
+      navigate("/login");
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} noValidate>
-      <label>
+    <form className="register-form" onSubmit={handleSubmit} noValidate>
+      <label className="register-label">
         Nombre completo:
         <input
+          className="register-input"
           type="text"
           name="fullName"
           value={registerData.fullName}
@@ -117,12 +121,13 @@ const Register = () => {
           required
         />
         {errors.fullName && (
-          <span style={{ color: "red" }}>{errors.fullName}</span>
+          <span className="register-error">{errors.fullName}</span>
         )}
       </label>
-      <label>
+      <label className="register-label">
         Email:
         <input
+          className="register-input"
           type="email"
           name="email"
           value={registerData.email}
@@ -130,11 +135,12 @@ const Register = () => {
           placeholder="Ingrese su email"
           required
         />
-        {errors.email && <span style={{ color: "red" }}>{errors.email}</span>}
+        {errors.email && <span className="register-error">{errors.email}</span>}
       </label>
-      <label>
+      <label className="register-label">
         Contraseña:
         <input
+          className="register-input"
           type="password"
           name="password"
           value={registerData.password}
@@ -143,12 +149,13 @@ const Register = () => {
           required
         />
         {errors.password && (
-          <span style={{ color: "red" }}>{errors.password}</span>
+          <span className="register-error">{errors.password}</span>
         )}
       </label>
-      <label>
+      <label className="register-label">
         Número de documento:
         <input
+          className="register-input"
           type="text"
           name="documentNumber"
           value={registerData.documentNumber}
@@ -157,12 +164,13 @@ const Register = () => {
           required
         />
         {errors.documentNumber && (
-          <span style={{ color: "red" }}>{errors.documentNumber}</span>
+          <span className="register-error">{errors.documentNumber}</span>
         )}
       </label>
-      <label>
+      <label className="register-label">
         Teléfono:
         <input
+          className="register-input"
           type="tel"
           name="phone"
           value={registerData.phone}
@@ -170,11 +178,12 @@ const Register = () => {
           placeholder="Ingrese su número de teléfono"
           required
         />
-        {errors.phone && <span style={{ color: "red" }}>{errors.phone}</span>}
+        {errors.phone && <span className="register-error">{errors.phone}</span>}
       </label>
-      <label>
+      <label className="register-label">
         Fecha de nacimiento:
         <input
+          className="register-input"
           type="date"
           name="birthDate"
           value={registerData.birthDate}
@@ -182,12 +191,13 @@ const Register = () => {
           required
         />
         {errors.birthDate && (
-          <span style={{ color: "red" }}>{errors.birthDate}</span>
+          <span className="register-error">{errors.birthDate}</span>
         )}
       </label>
-      <label>
+      <label className="register-label">
         Dirección:
         <input
+          className="register-input"
           type="text"
           name="address"
           value={registerData.address}
@@ -196,10 +206,12 @@ const Register = () => {
           required
         />
         {errors.address && (
-          <span style={{ color: "red" }}>{errors.address}</span>
+          <span className="register-error">{errors.address}</span>
         )}
       </label>
-      <button type="submit">Enviar</button>
+      <button className="register-submit" type="submit">
+        Enviar
+      </button>
     </form>
   );
 };

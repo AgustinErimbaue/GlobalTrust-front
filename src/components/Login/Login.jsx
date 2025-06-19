@@ -1,7 +1,8 @@
 import { useState } from "react";
+import "./Login.css";
 import { useDispatch } from "react-redux";
 import { login } from "../../features/auth/authSlice";
-
+import { useNavigate } from "react-router-dom";
 const Login = () => {
   const initialState = {
     email: "",
@@ -9,11 +10,13 @@ const Login = () => {
   };
   const [loginData, setLoginData] = useState(initialState);
   const [errors, setErrors] = useState({});
-  const { email, password } = loginData;
+  const [success, setSuccess] = useState(false);
   const dispatch = useDispatch();
+  const { email, password } = loginData;
+  const navigate = useNavigate();
+
   const validate = () => {
     const newErrors = {};
-
     if (!email.trim()) {
       newErrors.email = "El email es obligatorio.";
     } else if (
@@ -21,19 +24,18 @@ const Login = () => {
     ) {
       newErrors.email = "Ingrese un email válido.";
     }
-
     if (!password) {
       newErrors.password = "La contraseña es obligatoria.";
     } else if (password.length < 8) {
       newErrors.password = "La contraseña debe tener al menos 8 caracteres.";
     }
-
     return newErrors;
   };
 
   const handleInputChange = (e) => {
     setLoginData({ ...loginData, [e.target.name]: e.target.value });
     setErrors({ ...errors, [e.target.name]: "" });
+    setSuccess(false);
   };
 
   const handleSubmit = (e) => {
@@ -43,28 +45,36 @@ const Login = () => {
 
     if (Object.keys(validationErrors).length === 0) {
       dispatch(login(loginData));
-      alert("Inicio de sesión exitoso");
+      setSuccess(true);
       setLoginData(initialState);
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} noValidate>
-      <label>
+    <form className="login-form" onSubmit={handleSubmit} noValidate>
+      {success && (
+        <div className="login-success">¡Inicio de sesión exitoso!</div>
+      )}
+      <label className="login-label">
         Email:
         <input
+          className="login-input"
           type="email"
           name="email"
           value={email}
           onChange={handleInputChange}
           required
         />
-        {errors.email && <span style={{ color: "red" }}>{errors.email}</span>}
+        {errors.email && <span className="login-error">{errors.email}</span>}
       </label>
 
-      <label>
+      <label className="login-label">
         Contraseña:
         <input
+          className="login-input"
           type="password"
           name="password"
           value={password}
@@ -72,10 +82,12 @@ const Login = () => {
           required
         />
         {errors.password && (
-          <span style={{ color: "red" }}>{errors.password}</span>
+          <span className="login-error">{errors.password}</span>
         )}
       </label>
-      <button type="submit">Ingresar</button>
+      <button className="login-submit" type="submit">
+        Ingresar
+      </button>
     </form>
   );
 };
