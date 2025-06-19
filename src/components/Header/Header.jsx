@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "./Header.css";
+import Logout from "../Logout/Logout";
 
 const Header = () => {
   const user = useSelector((state) => state.auth.user);
@@ -30,9 +31,7 @@ const Header = () => {
           <Link to="/profile" className="header-link">
             Profile
           </Link>
-          <Link to="/logout" className="header-link">
-            Logout
-          </Link>
+          <Logout/>
         </>
       )}
     </nav>

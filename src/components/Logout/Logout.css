@@ -1,0 +1,35 @@
+.logout-link {
+  color: #fff;
+  background: #e60050;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 8px 18px;
+  border-radius: 8px;
+  transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+  letter-spacing: 0.5px;
+  margin-left: 8px;
+  box-shadow: 0 2px 8px rgba(230, 0, 80, 0.08);
+  font-family: 'Montserrat', 'Segoe UI', 'Roboto', Arial, sans-serif;
+  border: none;
+  outline: none;
+  display: inline-block;
+}
+
+.logout-link:hover,
+.logout-link:focus {
+  background: #fff;
+  color: #e60050;
+  box-shadow: 0 2px 8px rgba(230, 0, 80, 0.15);
+  outline: none;
+  border: 1.5px solid #e60050;
+}
+
+@media (max-width: 600px) {
+  .logout-link {
+    font-size: 1rem;
+    padding: 8px 12px;
+    margin-left: 0;
+    margin-top: 8px;
+  }
+}
