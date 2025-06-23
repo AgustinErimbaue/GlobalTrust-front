@@ -39,6 +39,39 @@ export const logout = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
   }
 });
 
+export const updateProfile = createAsyncThunk(
+  "auth/updateProfile",
+  async (profileData, thunkAPI) => {
+    try {
+      return await authService.updateProfile(profileData);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response?.data || error.message);
+    }
+  }
+);
+
+export const deleteAccount = createAsyncThunk(
+  "auth/deleteAccount",
+  async (userId, thunkAPI) => {
+    try {
+      return await authService.deleteAccount(userId);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response?.data || error.message);
+    }
+  }
+);
+
+export const getUserById = createAsyncThunk(
+  "auth/getUserById",
+  async (userId, thunkAPI) => {
+    try {
+      return await authService.getUserById(userId);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response?.data || error.message);
+    }
+  }
+);
+
 export const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -61,6 +94,19 @@ export const authSlice = createSlice({
         state.user = null;
         state.token = null;
       })
+      .addCase(updateProfile.fulfilled, (state, action) => {
+        state.user = action.payload;
+      })
+      .addCase(deleteAccount.fulfilled, (state) => {
+        state.user = null;
+        state.token = null;
+      })
+      .addCase(getUserById.fulfilled, (state, action) => {
+        state.user = action.payload;
+      })
+      .addCase(updateProfile.rejected, (state, action) => {
+        state.error = action.payload || "Error al actualizar el perfil";
+      })
       .addCase(login.rejected, (state) => {
         state.user = null;
         state.token = null;
@@ -68,12 +114,18 @@ export const authSlice = createSlice({
       .addCase(logout.rejected, (state) => {
         state.user = null;
         state.token = null;
-        localStorage.removeItem("user");
-        localStorage.removeItem("token");
       })
-      .addCase(register.rejected, (state) => {
+      .addCase(register.rejected, (action, state) => {
         state.user = null;
         state.token = null;
+        state.error = action.payload || "Error al registrar el usuario";
+      })
+      .addCase(deleteAccount.rejected, (state) => {
+        state.user = null;
+        state.token = null;
+      })
+      .addCase(getUserById.rejected, (state, action) => {
+        state.error = action.payload || "Error al obtener el usuario";
       });
   },
 });
