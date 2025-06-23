@@ -6,8 +6,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Profile from "./components/Profile/Profile";
 import Card from "./components/Card/Card";
 import Loan from "./components/Loan/Loan";
-import Logout from "./components/LogOut/Logout";
-
+import Logout from "./components/Logout/Logout";
+import "./App.css";
 
 function App() {
   return (

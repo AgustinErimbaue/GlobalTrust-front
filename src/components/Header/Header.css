@@ -3,41 +3,43 @@
   justify-content: center;
   align-items: center;
   gap: 28px;
-  background: #0038a8;
+  background: rgba(0, 56, 168, 0.85); 
   padding: 18px 0;
   border-radius: 0 0 16px 16px;
-  box-shadow: 0 2px 12px rgba(0, 56, 168, 0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
   font-family: 'Montserrat', 'Segoe UI', 'Roboto', Arial, sans-serif;
+  backdrop-filter: blur(6px);
 }
 
 .header-link {
-  color: #fff;
-  font-size: 1.1rem;
+  color: #ffffff;
+  font-size: 1.05rem;
   font-weight: 600;
   text-decoration: none;
-  padding: 8px 18px;
-  border-radius: 6px;
-  transition: background 0.18s, color 0.18s, box-shadow 0.18s;
-  letter-spacing: 0.5px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  transition: all 0.2s ease-in-out;
+  letter-spacing: 0.4px;
+  background: linear-gradient(to right, rgba(255,255,255,0.05), rgba(255,255,255,0.08));
 }
 
 .header-link:hover,
 .header-link:focus {
-  background: #e6f0fa;
-  color: #0038a8;
-  box-shadow: 0 2px 8px rgba(0, 56, 168, 0.10);
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 120, 255, 0.4);
   outline: none;
 }
 
 @media (max-width: 600px) {
   .header-nav {
     flex-direction: column;
-    gap: 10px;
-    padding: 12px 0;
-    border-radius: 0 0 10px 10px;
+    gap: 12px;
+    padding: 14px 0;
+    border-radius: 0 0 12px 12px;
   }
   .header-link {
     font-size: 1rem;
-    padding: 8px 12px;
+    padding: 10px 14px;
   }
 }
