@@ -24,6 +24,17 @@ export const getById = createAsyncThunk(
   }
 );
 
+export const createAccount = createAsyncThunk(
+  "account/createAccount",
+  async (accountData, thunkAPI) => {
+    try {
+      return await accountService.createAccount(accountData);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response?.data || error.message);
+    }
+  }
+);
+
 export const accountSlice = createSlice({
   name: "account",
   initialState,
@@ -45,6 +56,25 @@ export const accountSlice = createSlice({
         state.UserId = action.payload.UserId;
       })
       .addCase(getById.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.errorMessage = action.payload;
+      })
+      .addCase(createAccount.pending, (state) => {
+        state.isLoading = true;
+        state.isError = false;
+        state.errorMessage = "";
+      })
+      .addCase(createAccount.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.id = action.payload.id;
+        state.accountNumber = action.payload.accountNumber;
+        state.balance = action.payload.balance;
+        state.type = action.payload.type;
+        state.currency = action.payload.currency;
+        state.UserId = action.payload.UserId;
+      })
+      .addCase(createAccount.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.errorMessage = action.payload;

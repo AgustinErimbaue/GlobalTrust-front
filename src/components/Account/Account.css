@@ -51,7 +51,47 @@
   outline: none;
 }
 
+.account-input,
+.account-input option {
+  background: rgba(255, 255, 255, 0.13);
+  color: #0038a8;
+}
+
 .account-input:focus {
   background: rgba(255, 255, 255, 0.18);
-  border: 1px solid #a0c4ff;
+  color: #0038a8;
+}
+
+.account-input option {
+  background: #e6f0fa;
+  color: #0038a8;
+}
+
+.account-btn {
+  background: #0038a8;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  padding: 0.7rem 1.2rem;
+  margin-top: 0.5rem;
+  cursor: pointer;
+  opacity: 1;
+  transition: opacity 0.2s;
+}
+
+.account-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.account-success-message {
+  background: #d4edda;
+  color: #155724;
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.05rem;
 }

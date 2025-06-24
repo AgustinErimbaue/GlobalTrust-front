@@ -12,8 +12,17 @@ const getById = async (accountId) => {
   return res.data;
 };
 
+const createAccount = async (accountData) => {
+  const token = localStorage.getItem("token");
+  const res = await axios.post(`${API_URL}/create-account`, accountData, {
+    headers: { authorization: token },
+  });
+  return res.data;
+};
+
 const accountService = {
   getById,
+  createAccount,
 };
 
 export default accountService;

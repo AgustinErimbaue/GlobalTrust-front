@@ -1,34 +1,78 @@
 import React, { useState } from "react";
 import "./Account.css";
+import { createAccount } from "../../features/account/accountSlice";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 const Account = () => {
   const initialState = {
-    balance: 0,
+    balance: "",
     type: "",
     currency: "",
   };
   const [accountData, setAccountData] = useState(initialState);
+  const [errors, setErrors] = useState({});
+  const [success, setSuccess] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { balance, type, currency } = accountData;
+
+  const validate = () => {
+    const newErrors = {};
+    if (!type.trim()) newErrors.type = "Account type is required";
+    if (balance === "" || isNaN(balance) || Number(balance) < 0) newErrors.balance = "Balance must be 0 or greater";
+    if (!currency) newErrors.currency = "Currency is required";
+    return newErrors;
+  };
 
   const handleChangeInput = (e) => {
     setAccountData({ ...accountData, [e.target.name]: e.target.value });
-    console.log(accountData);
   };
 
-  const { balance, type, currency } = accountData;
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const validationErrors = validate();
+    setErrors(validationErrors);
+    if (Object.keys(validationErrors).length === 0) {
+      dispatch(createAccount({ ...accountData, balance: Number(balance) }));
+      setAccountData(initialState);
+      setSuccess(true);
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
+    }
+  };
+
+  const isFormValid = () => {
+    const validationErrors = validate();
+    return Object.keys(validationErrors).length === 0;
+  };
+
   return (
     <div className="account-container">
       <div className="account-card">
         <h2 className="account-title">Account</h2>
-        <form className="account-form">
+        {success && (
+          <div className="account-success-message">
+            Account created!
+          </div>
+        )}
+        <form className="account-form" onSubmit={handleSubmit}>
           <label>
             Account type:
-            <input
-              type="text"
+            <select
               name="type"
               value={type}
               onChange={handleChangeInput}
               className="account-input"
-              placeholder="e.g. Savings account"
-            />
+            >
+              <option value="">Select account type</option>
+              <option value="savings">Savings account</option>
+              <option value="checking">Checking account</option>
+              <option value="investment">Investment account</option>
+            </select>
+            {errors.type && <span style={{ color: "#ffbaba", fontSize: "0.95em" }}>{errors.type}</span>}
           </label>
           <label>
             Balance:
@@ -41,6 +85,7 @@ const Account = () => {
               min="0"
               step="0.01"
             />
+            {errors.balance && <span style={{ color: "#ffbaba", fontSize: "0.95em" }}>{errors.balance}</span>}
           </label>
           <label>
             Currency:
@@ -55,7 +100,17 @@ const Account = () => {
               <option value="EUR">Euro (EUR)</option>
               <option value="ARS">Argentine Peso (ARS)</option>
             </select>
+            {errors.currency && <span style={{ color: "#ffbaba", fontSize: "0.95em" }}>{errors.currency}</span>}
           </label>
+          <div className="form-buttons" style={{ marginTop: "1.2rem" }}>
+            <button
+              type="submit"
+              className="account-input account-btn"
+              disabled={!isFormValid()}
+            >
+              Create account
+            </button>
+          </div>
         </form>
       </div>
     </div>
