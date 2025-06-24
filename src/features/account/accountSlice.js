@@ -1,0 +1,55 @@
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import accountService from "./accountService";
+
+const initialState = {
+  id: null,
+  accountNumber: "",
+  balance: 0,
+  type: "",
+  currency: "",
+  UserId: null,
+  isLoading: false,
+  isError: false,
+  errorMessage: "",
+};
+
+export const getById = createAsyncThunk(
+  "account/getById",
+  async (accountId, thunkAPI) => {
+    try {
+      return await accountService.getById(accountId);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response?.data || error.message);
+    }
+  }
+);
+
+export const accountSlice = createSlice({
+  name: "account",
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(getById.pending, (state) => {
+        state.isLoading = true;
+        state.isError = false;
+        state.errorMessage = "";
+      })
+      .addCase(getById.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.id = action.payload.id;
+        state.accountNumber = action.payload.accountNumber;
+        state.balance = action.payload.balance;
+        state.type = action.payload.type;
+        state.currency = action.payload.currency;
+        state.UserId = action.payload.UserId;
+      })
+      .addCase(getById.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.errorMessage = action.payload;
+      });
+  },
+});
+
+export default accountSlice.reducer;

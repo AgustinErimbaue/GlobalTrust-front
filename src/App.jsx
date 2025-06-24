@@ -8,6 +8,7 @@ import Card from "./components/Card/Card";
 import Loan from "./components/Loan/Loan";
 import Logout from "./components/Logout/Logout";
 import "./App.css";
+import Account from "./components/Account/Account";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/card" element={<Card />} />
           <Route path="/loan" element={<Loan />} />
           <Route path="/logout" element={<Logout />} />
+          <Route path="/account" element={<Account />} />
         </Routes>
       </BrowserRouter>
     </>
