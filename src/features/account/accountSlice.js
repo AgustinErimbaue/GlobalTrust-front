@@ -35,6 +35,17 @@ export const createAccount = createAsyncThunk(
   }
 );
 
+export const deleteAccount = createAsyncThunk(
+  "account/deleteAccount",
+  async (accountId, thunkAPI) => {
+    try {
+      return await accountService.deleteAccount(accountId);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response?.data || error.message);
+    }
+  }
+);
+
 export const accountSlice = createSlice({
   name: "account",
   initialState,
@@ -75,6 +86,25 @@ export const accountSlice = createSlice({
         state.UserId = action.payload.UserId;
       })
       .addCase(createAccount.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.errorMessage = action.payload;
+      })
+      .addCase(deleteAccount.pending, (state) => {
+        state.isLoading = true;
+        state.isError = false;
+        state.errorMessage = "";
+      })
+      .addCase(deleteAccount.fulfilled, (state) => {
+        state.isLoading = false;
+        state.id = null;
+        state.accountNumber = "";
+        state.balance = 0;
+        state.type = "";
+        state.currency = "";
+        state.UserId = null;
+      })
+      .addCase(deleteAccount.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.errorMessage = action.payload;

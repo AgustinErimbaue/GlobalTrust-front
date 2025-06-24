@@ -50,11 +50,11 @@ export const updateProfile = createAsyncThunk(
   }
 );
 
-export const deleteAccount = createAsyncThunk(
-  "auth/deleteAccount",
+export const deleteUser = createAsyncThunk(
+  "auth/deleteUser",
   async (userId, thunkAPI) => {
     try {
-      return await authService.deleteAccount(userId);
+      return await authService.deleteUser(userId);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response?.data || error.message);
     }
@@ -97,7 +97,7 @@ export const authSlice = createSlice({
       .addCase(updateProfile.fulfilled, (state, action) => {
         state.user = action.payload;
       })
-      .addCase(deleteAccount.fulfilled, (state) => {
+      .addCase(deleteUser.fulfilled, (state) => {
         state.user = null;
         state.token = null;
       })
@@ -120,7 +120,7 @@ export const authSlice = createSlice({
         state.token = null;
         state.error = action.payload || "Error al registrar el usuario";
       })
-      .addCase(deleteAccount.rejected, (state) => {
+      .addCase(deleteUser.rejected, (state) => {
         state.user = null;
         state.token = null;
       })

@@ -20,9 +20,17 @@ const createAccount = async (accountData) => {
   return res.data;
 };
 
+const deleteAccount = async (accountId) => {
+  const token = localStorage.getItem("token");
+  const res = await axios.delete(`${API_URL}/delete-account/${accountId}`, {
+    headers: { authorization: token },
+  });
+  return res.data;
+};
 const accountService = {
   getById,
   createAccount,
+  deleteAccount
 };
 
 export default accountService;

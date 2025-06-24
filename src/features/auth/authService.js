@@ -49,7 +49,7 @@ const updateProfile = async (profileData) => {
   return res.data;
 };
 
-const deleteAccount = async (userId) => {
+const deleteUser = async (userId) => {
   const token = localStorage.getItem("token");
   const res = await axios.delete(`${API_URL}/delete-user/${userId}`, {
     headers: {
@@ -64,7 +64,7 @@ const authService = {
   login,
   logout,
   updateProfile,
-  deleteAccount,
+  deleteUser,
   getUserById,
 };
 
