@@ -1,6 +1,7 @@
 .card-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column; 
+  justify-content: flex-start; 
   align-items: center;
   min-height: 60vh;
   padding: 2rem;
@@ -81,4 +82,55 @@
   font-weight: bold;
   font-size: 1.05rem;
   box-shadow: 0 2px 8px rgba(0, 56, 168, 0.08);
+}
+
+.cards-list {
+  margin-top: 2.5rem;
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.card-info {
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(8px);
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0, 56, 168, 0.13);
+  border: 1.5px solid #a0c4ff;
+  padding: 1.5rem 2.2rem;
+  width: 300px;
+  color: #0038a8;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  transition: transform 0.15s, box-shadow 0.15s;
+  font-family: 'Montserrat', 'Segoe UI', 'Roboto', Arial, sans-serif;
+}
+
+.card-info:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 8px 32px rgba(0, 56, 168, 0.18);
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.card-info h4 {
+  margin: 0;
+  font-size: 1.08rem;
+  font-weight: 500;
+  color: #0038a8;
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 2px rgba(255,255,255,0.12);
+}
+
+.cards-list h3 {
+  color: #0038a8;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  width: 100%;
+  letter-spacing: 1px;
 }

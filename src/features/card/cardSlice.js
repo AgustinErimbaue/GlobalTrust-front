@@ -77,7 +77,6 @@ export const cardSlice = createSlice({
       })
       .addCase(getCardById.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.isSuccess = true;
         state.card = action.payload;
         state.message = "Card fetched successfully";
       })
