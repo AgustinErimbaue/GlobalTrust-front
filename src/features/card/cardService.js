@@ -10,8 +10,17 @@ const createCard = async (carData) => {
   return res.data;
 };
 
+const getById = async (cardId) => {
+  const token = localStorage.getItem("token")
+  const res = await axios.get(`${API_URL}/get-cards/${cardId}`, {
+    headers: { authorization: token },
+  });
+  return res.data;
+}
+
 const cardService = {
   createCard,
+  getById
 };
 
 export default cardService;
