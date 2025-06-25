@@ -93,6 +93,8 @@ export const authSlice = createSlice({
       .addCase(logout.fulfilled, (state) => {
         state.user = null;
         state.token = null;
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
       })
       .addCase(updateProfile.fulfilled, (state, action) => {
         state.user = action.payload;

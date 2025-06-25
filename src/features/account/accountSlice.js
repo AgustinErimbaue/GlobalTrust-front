@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import accountService from "./accountService";
+import { logout } from "../auth/authSlice";
 
 const initialState = {
   id: null,
@@ -49,7 +50,11 @@ export const deleteAccount = createAsyncThunk(
 export const accountSlice = createSlice({
   name: "account",
   initialState,
-  reducers: {},
+  reducers: {
+    resetAccount: (state) => {
+      Object.assign(state, initialState);
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getById.pending, (state) => {
@@ -108,8 +113,12 @@ export const accountSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.errorMessage = action.payload;
+      })
+      .addCase(logout.fulfilled, (state) => {
+        Object.assign(state, initialState);
       });
   },
 });
 
+export const { resetAccount } = accountSlice.actions;
 export default accountSlice.reducer;
