@@ -76,7 +76,12 @@ const Card = () => {
 
       {Array.isArray(card) && card.length > 0 && (
         <div className="cards-list">
-          <h3>My Cards</h3>
+          <h3>
+            <span role="img" aria-label="cards" style={{ marginRight: "8px" }}>
+              💳
+            </span>
+            My Cards
+          </h3>
           {card.map((c) => (
             <div key={c.id} className="card-info">
               <div className="card-info-content">
