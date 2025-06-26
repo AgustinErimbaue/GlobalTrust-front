@@ -37,6 +37,19 @@ export const getCardById = createAsyncThunk(
   }
 );
 
+export const deleteCard = createAsyncThunk(
+  "card/deleteCard",
+  async (cardId, thunkAPI) => {
+    try {
+      return await cardService.deleteCard(cardId);
+    } catch (error) {
+       const msg =
+        error.response?.data?.msg || error.message || "Error deleting card";
+      return thunkAPI.rejectWithValue(msg);
+    }
+  }
+);
+
 export const cardSlice = createSlice({
   name: "card",
   initialState,
@@ -84,6 +97,23 @@ export const cardSlice = createSlice({
         state.isError = true;
         state.message = action.payload || "Error fetching card by ID";
         state.card = null;
+      })
+      .addCase(deleteCard.pending, (state) => {
+        state.isLoading = true;
+        state.isSuccess = false;
+        state.isError = false;
+        state.message = "";
+      })
+      .addCase(deleteCard.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.card = null;
+        state.message = action.payload.msg || "Card deleted successfully";
+      })
+      .addCase(deleteCard.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload || "Error deleting card";
       });
   },
 });

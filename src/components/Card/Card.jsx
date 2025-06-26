@@ -5,6 +5,7 @@ import {
   createCard,
   getCardById,
   resetCardState,
+  deleteCard
 } from "../../features/card/cardSlice";
 
 const Card = () => {
@@ -12,6 +13,7 @@ const Card = () => {
     type: "",
   };
   const [dataForm, setDataForm] = useState(initialState);
+  const [deleteButton, setDeleteButton] = useState(false);
   const { type } = dataForm;
   const dispatch = useDispatch();
   const { card, isSuccess } = useSelector((state) => state.card);
@@ -21,7 +23,7 @@ const Card = () => {
     if (user && user.id) {
       dispatch(getCardById(user.id));
     }
-  }, [dispatch, user?.id]);
+  }, [dispatch, user]);
 
   useEffect(() => {
     if (isSuccess && user && user.id) {
@@ -31,7 +33,7 @@ const Card = () => {
       }, 2000);
       return () => clearTimeout(timer);
     }
-  }, [isSuccess, dispatch, user?.id]);
+  }, [isSuccess, dispatch, user]);
 
   const handleInputChange = (e) => {
     setDataForm({ ...dataForm, [e.target.name]: e.target.value });
@@ -47,6 +49,9 @@ const Card = () => {
     setDataForm(initialState);
   };
 
+  const handleDeleteButtonClick = () => {
+    setDeleteButton(!deleteButton);
+  };  
   return (
     <div className="card-container">
       <form className="card-form" onSubmit={handleSubmit}>
@@ -74,6 +79,13 @@ const Card = () => {
         </button>
       </form>
 
+      <label className="lost-card-label">
+        Lost your card?
+        <button type="button" className="lost-card-btn" onClick={handleDeleteButtonClick}>
+          Select card to delete
+        </button>
+      </label>
+
       {Array.isArray(card) && card.length > 0 && (
         <div className="cards-list">
           <h3>
@@ -91,6 +103,17 @@ const Card = () => {
                 <h4>
                   Expiration: {new Date(c.expirationDate).toLocaleDateString()}
                 </h4>
+                {deleteButton && (
+                  <button
+                    className="delete-card-btn"
+                    onClick={() => {
+                      dispatch(deleteCard(c.id));
+                      setDeleteButton(false);
+                    }}
+                  >
+                    Delete Card
+                  </button>
+                )}
               </div>
             </div>
           ))}

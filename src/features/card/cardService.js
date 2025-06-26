@@ -18,9 +18,17 @@ const getById = async (cardId) => {
   return res.data;
 }
 
+const deleteCard = async (cardId) => {
+  const token = localStorage.getItem("token");
+  const res = await axios.delete(`${API_URL}/delete-card/${cardId}`, {
+    headers: { authorization: token },
+  });
+  return res.data;
+};
 const cardService = {
   createCard,
-  getById
+  getById,
+  deleteCard
 };
 
 export default cardService;

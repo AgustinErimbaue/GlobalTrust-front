@@ -18,16 +18,16 @@ const Login = () => {
   const validate = () => {
     const newErrors = {};
     if (!email.trim()) {
-      newErrors.email = "El email es obligatorio.";
+      newErrors.email = "Email is required.";
     } else if (
       !/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(email)
     ) {
-      newErrors.email = "Ingrese un email válido.";
+      newErrors.email = "Enter a valid email.";
     }
     if (!password) {
-      newErrors.password = "La contraseña es obligatoria.";
+      newErrors.password = "Password is required.";
     } else if (password.length < 8) {
-      newErrors.password = "La contraseña debe tener al menos 8 caracteres.";
+      newErrors.password = "Password must have at least 8 characters.";
     }
     return newErrors;
   };
@@ -56,7 +56,7 @@ const Login = () => {
   return (
     <form className="login-form" onSubmit={handleSubmit} noValidate>
       {success && (
-        <div className="login-success">¡Inicio de sesión exitoso!</div>
+        <div className="login-success">Login successful!</div>
       )}
       <label className="login-label">
         Email:
@@ -72,7 +72,7 @@ const Login = () => {
       </label>
 
       <label className="login-label">
-        Contraseña:
+        Password:
         <input
           className="login-input"
           type="password"
@@ -86,7 +86,7 @@ const Login = () => {
         )}
       </label>
       <button className="login-submit" type="submit">
-        Ingresar
+        Login
       </button>
     </form>
   );

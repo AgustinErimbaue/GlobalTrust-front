@@ -25,47 +25,47 @@ const Register = () => {
     const newErrors = {};
 
     if (!registerData.fullName.trim()) {
-      newErrors.fullName = "El nombre completo es obligatorio.";
+      newErrors.fullName = "Full name is required.";
     } else if (!/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{3,}$/.test(registerData.fullName)) {
       newErrors.fullName =
-        "Ingrese un nombre válido (solo letras, mínimo 3 caracteres).";
+        "Enter a valid name (letters only, minimum 3 characters).";
     }
 
     if (!registerData.email.trim()) {
-      newErrors.email = "El email es obligatorio.";
+      newErrors.email = "Email is required.";
     } else if (
       !/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(
         registerData.email
       )
     ) {
-      newErrors.email = "Ingrese un email válido.";
+      newErrors.email = "Enter a valid email.";
     }
 
     if (!registerData.password) {
-      newErrors.password = "La contraseña es obligatoria.";
+      newErrors.password = "Password is required.";
     } else if (
       !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/.test(
         registerData.password
       )
     ) {
       newErrors.password =
-        "Mínimo 8 caracteres, una mayúscula, una minúscula y un número.";
+        "Minimum 8 characters, one uppercase, one lowercase and one number.";
     }
 
     if (!registerData.documentNumber.trim()) {
-      newErrors.documentNumber = "El número de documento es obligatorio.";
+      newErrors.documentNumber = "Document number is required.";
     } else if (!/^\d{7,}$/.test(registerData.documentNumber)) {
-      newErrors.documentNumber = "Solo números, mínimo 7 dígitos.";
+      newErrors.documentNumber = "Numbers only, minimum 7 digits.";
     }
 
     if (!registerData.phone.trim()) {
-      newErrors.phone = "El teléfono es obligatorio.";
+      newErrors.phone = "Phone number is required.";
     } else if (!/^\d{8,}$/.test(registerData.phone)) {
-      newErrors.phone = "Solo números, mínimo 8 dígitos.";
+      newErrors.phone = "Numbers only, minimum 8 digits.";
     }
 
     if (!registerData.birthDate) {
-      newErrors.birthDate = "La fecha de nacimiento es obligatoria.";
+      newErrors.birthDate = "Birth date is required.";
     } else {
       const birth = new Date(registerData.birthDate);
       const today = new Date();
@@ -73,17 +73,17 @@ const Register = () => {
       const m = today.getMonth() - birth.getMonth();
       if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) {
         if (age - 1 < 18) {
-          newErrors.birthDate = "Debes ser mayor de 18 años.";
+          newErrors.birthDate = "You must be over 18 years old.";
         }
       } else if (age < 18) {
-        newErrors.birthDate = "Debes ser mayor de 18 años.";
+        newErrors.birthDate = "You must be over 18 years old.";
       }
     }
 
     if (!registerData.address.trim()) {
-      newErrors.address = "La dirección es obligatoria.";
+      newErrors.address = "Address is required.";
     } else if (registerData.address.trim().length < 5) {
-      newErrors.address = "La dirección debe tener al menos 5 caracteres.";
+      newErrors.address = "Address must have at least 5 characters.";
     }
 
     return newErrors;
@@ -101,7 +101,7 @@ const Register = () => {
 
     if (Object.keys(validationErrors).length === 0) {
       dispatch(register(registerData));
-      alert("Registro exitoso");
+      alert("Registration successful");
       setRegisterData(initialState);
       navigate("/login");
     }
@@ -110,14 +110,14 @@ const Register = () => {
   return (
     <form className="register-form" onSubmit={handleSubmit} noValidate>
       <label className="register-label">
-        Nombre completo:
+        Full name:
         <input
           className="register-input"
           type="text"
           name="fullName"
           value={registerData.fullName}
           onChange={handleInputChange}
-          placeholder="Ingrese su nombre completo"
+          placeholder="Enter your full name"
           required
         />
         {errors.fullName && (
@@ -132,20 +132,20 @@ const Register = () => {
           name="email"
           value={registerData.email}
           onChange={handleInputChange}
-          placeholder="Ingrese su email"
+          placeholder="Enter your email"
           required
         />
         {errors.email && <span className="register-error">{errors.email}</span>}
       </label>
       <label className="register-label">
-        Contraseña:
+        Password:
         <input
           className="register-input"
           type="password"
           name="password"
           value={registerData.password}
           onChange={handleInputChange}
-          placeholder="Ingrese su contraseña"
+          placeholder="Enter your password"
           required
         />
         {errors.password && (
@@ -153,14 +153,14 @@ const Register = () => {
         )}
       </label>
       <label className="register-label">
-        Número de documento:
+        Document number:
         <input
           className="register-input"
           type="text"
           name="documentNumber"
           value={registerData.documentNumber}
           onChange={handleInputChange}
-          placeholder="Ingrese su número de documento"
+          placeholder="Enter your document number"
           required
         />
         {errors.documentNumber && (
@@ -168,20 +168,20 @@ const Register = () => {
         )}
       </label>
       <label className="register-label">
-        Teléfono:
+        Phone:
         <input
           className="register-input"
           type="tel"
           name="phone"
           value={registerData.phone}
           onChange={handleInputChange}
-          placeholder="Ingrese su número de teléfono"
+          placeholder="Enter your phone number"
           required
         />
         {errors.phone && <span className="register-error">{errors.phone}</span>}
       </label>
       <label className="register-label">
-        Fecha de nacimiento:
+        Birth date:
         <input
           className="register-input"
           type="date"
@@ -195,14 +195,14 @@ const Register = () => {
         )}
       </label>
       <label className="register-label">
-        Dirección:
+        Address:
         <input
           className="register-input"
           type="text"
           name="address"
           value={registerData.address}
           onChange={handleInputChange}
-          placeholder="Ingrese su dirección"
+          placeholder="Enter your address"
           required
         />
         {errors.address && (
@@ -210,7 +210,7 @@ const Register = () => {
         )}
       </label>
       <button className="register-submit" type="submit">
-        Enviar
+        Submit
       </button>
     </form>
   );
