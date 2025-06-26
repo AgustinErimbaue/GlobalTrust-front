@@ -79,12 +79,14 @@ const Card = () => {
           <h3>My Cards</h3>
           {card.map((c) => (
             <div key={c.id} className="card-info">
-              <h4>Card Number: {c.number}</h4>
-              <h4>CVV: {c.cvv}</h4>
-              <h4>Type: {c.type}</h4>
-              <h4>
-                Expiration: {new Date(c.expirationDate).toLocaleDateString()}
-              </h4>
+              <div className="card-info-content">
+                <div className="card-number">{c.number}</div>
+                <h4>CVV: {c.cvv}</h4>
+                <div className="card-type">{c.type}</div>
+                <h4>
+                  Expiration: {new Date(c.expirationDate).toLocaleDateString()}
+                </h4>
+              </div>
             </div>
           ))}
         </div>

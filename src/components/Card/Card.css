@@ -95,25 +95,52 @@
 }
 
 .card-info {
-  background: rgba(255, 255, 255, 0.18);
+  background: linear-gradient(135deg, #e0e6ed 60%, #a0c4ff 100%);
   backdrop-filter: blur(8px);
-  border-radius: 16px;
+  border-radius: 18px;
   box-shadow: 0 4px 24px rgba(0, 56, 168, 0.13);
   border: 1.5px solid #a0c4ff;
-  padding: 1.5rem 2.2rem;
-  width: 300px;
+  padding: 1.7rem 2.4rem 1.3rem 2.4rem;
+  width: 320px;
+  min-height: 180px;
   color: #0038a8;
   display: flex;
   flex-direction: column;
   gap: 0.7rem;
   transition: transform 0.15s, box-shadow 0.15s;
   font-family: 'Montserrat', 'Segoe UI', 'Roboto', Arial, sans-serif;
+  position: relative;
+  overflow: hidden;
 }
 
-.card-info:hover {
-  transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 8px 32px rgba(0, 56, 168, 0.18);
-  background: rgba(255, 255, 255, 0.28);
+.card-info::before {
+  content: "";
+  position: absolute;
+  top: 18px; left: 22px;
+  width: 38px; height: 38px;
+  background: radial-gradient(circle at 30% 30%, #a0c4ff 60%, #fff0 100%);
+  border-radius: 50%;
+  opacity: 0.7;
+  z-index: 0;
+}
+
+.card-info::after {
+  content: "";
+  position: absolute;
+  bottom: -30px; right: -30px;
+  width: 90px; height: 90px;
+  background: rgba(0,56,168,0.10);
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.card-info-content {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
 .card-info h4 {
@@ -125,12 +152,24 @@
   text-shadow: 0 1px 2px rgba(255,255,255,0.12);
 }
 
-.cards-list h3 {
-  color: #0038a8;
-  font-size: 1.25rem;
-  font-weight: 700;
+.card-number {
+  font-size: 1.15rem;
+  font-family: 'Roboto Mono', monospace;
+  letter-spacing: 2px;
   margin-bottom: 0.5rem;
-  text-align: center;
-  width: 100%;
-  letter-spacing: 1px;
+  color: #222e50;
+}
+
+.card-type {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #155724;
+  text-transform: uppercase;
+  margin-top: 0.5rem;
+}
+
+.card-info:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 8px 32px rgba(0, 56, 168, 0.18);
+  background: rgba(255, 255, 255, 0.28);
 }
