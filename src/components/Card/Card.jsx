@@ -18,20 +18,20 @@ const Card = () => {
   const user = useSelector((state) => state.auth.user);
 
   useEffect(() => {
-    if (user && (user._id || user.id)) {
-      dispatch(getCardById(user._id || user.id));
+    if (user && user.id) {
+      dispatch(getCardById(user.id));
     }
-  }, [dispatch, user?._id, user?.id]);
+  }, [dispatch, user?.id]);
 
   useEffect(() => {
-    if (isSuccess && user && (user._id || user.id)) {
-      dispatch(getCardById(user._id || user.id));
+    if (isSuccess && user && user.id) {
+      dispatch(getCardById(user.id));
       const timer = setTimeout(() => {
         dispatch(resetCardState());
       }, 2000);
       return () => clearTimeout(timer);
     }
-  }, [isSuccess, dispatch, user?._id, user?.id]);
+  }, [isSuccess, dispatch, user?.id]);
 
   const handleInputChange = (e) => {
     setDataForm({ ...dataForm, [e.target.name]: e.target.value });
@@ -54,13 +54,15 @@ const Card = () => {
         {isSuccess && (
           <div className="card-success-message">Card created successfully!</div>
         )}
-        <label>
+        <label htmlFor="card-type">
           Card type:
           <select
+            id="card-type"
             name="type"
             value={type}
             onChange={handleInputChange}
             className="card-input"
+            aria-label="Card type"
           >
             <option value="">Select card type</option>
             <option value="credit">Credit card</option>

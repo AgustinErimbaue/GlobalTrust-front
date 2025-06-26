@@ -2,9 +2,9 @@ import axios from "axios";
 
 const API_URL = "http://localhost:8080/cards";
 
-const createCard = async (carData) => {
+const createCard = async (cardData) => {
   const token = localStorage.getItem("token");
-  const res = await axios.post(`${API_URL}/create-card`, carData, {
+  const res = await axios.post(`${API_URL}/create-card`, cardData, {
     headers: { authorization: token },
   });
   return res.data;

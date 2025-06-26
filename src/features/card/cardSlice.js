@@ -46,7 +46,6 @@ export const cardSlice = createSlice({
       state.isSuccess = false;
       state.isError = false;
       state.message = "";
-      state.card = null;
     },
   },
   extraReducers: (builder) => {
