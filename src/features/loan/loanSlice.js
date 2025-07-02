@@ -1,0 +1,53 @@
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import loanService from "./loanService";
+
+const initialState = {
+    loan: null,
+    isLoading: false,
+    isSuccess: false,
+    isError: false,
+    message: "",
+};
+
+export const createLoan = createAsyncThunk(
+    "loan/createLoan",
+    async (loanData, thunkAPI) => {
+        try {
+            return await loanService.createLoan(loanData);
+        } catch (error) {
+            const msg =
+                error.response?.data?.msg || error.message || "Error creating loan";
+            return thunkAPI.rejectWithValue(msg);
+        }
+    }
+);
+
+export const loanSlice = createSlice({
+    name: "loan",
+    initialState,
+    reducers: {
+        resetLoanState: (state) => {
+            state.isLoading = false;
+            state.isSuccess = false;
+            state.isError = false;
+            state.message = "";
+        },
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(createLoan.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(createLoan.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.loan = action.payload;
+            })
+            .addCase(createLoan.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+            });
+    },
+    
+});
