@@ -12,6 +12,16 @@ const createLoan = async (loanData) => {
   return res.data;
 };
 
-const loanService = { createLoan };
+const getLoansByUserId = async () => {
+  const token = localStorage.getItem("token");
+  const res = await axios.get(`${API_URL}`, {
+    headers: {
+      authorization: token,
+    },
+  });
+  return res.data;
+};
+
+const loanService = { createLoan, getLoansByUserId };
 
 export default loanService;

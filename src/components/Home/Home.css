@@ -1,27 +1,48 @@
 .home-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 80vh;
-  padding: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 3rem;
+  min-height: 85vh;
+  padding: 3rem 2.5rem;
+  max-width: 1600px;
+  margin: 0 auto;
+  grid-template-areas: 
+    "account cards"
+    "loans cards";
+}
+
+.home-account-section {
+  grid-area: account;
+}
+
+.home-cards-section-container {
+  grid-area: cards;
+}
+
+.home-loans-section-container {
+  grid-area: loans;
 }
 
 .home-card {
   background: rgba(255, 255, 255, 0.07);
   backdrop-filter: blur(12px);
-  border-radius: 16px;
-  box-shadow: 0 6px 32px rgba(0, 0, 0, 0.25);
-  padding: 2.5rem 2.5rem;
-  max-width: 420px;
+  border-radius: 20px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.25);
+  padding: 3rem 2.5rem;
   width: 100%;
   color: #e6f0fa;
   border: 1px solid rgba(255, 255, 255, 0.13);
+  height: fit-content;
+  min-height: 350px;
+  display: flex;
+  flex-direction: column;
 }
 
 .home-title {
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   font-weight: 700;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
   text-align: center;
   color: #ffffff;
   letter-spacing: 1px;
@@ -29,10 +50,405 @@
 
 .home-info p {
   font-size: 1.1rem;
-  margin: 0.7rem 0;
+  margin: 1rem 0;
   color: #e6f0fa;
+  line-height: 1.6;
 }
 
 .home-info strong {
   color: #a0c4ff;
+}
+
+.home-cards-section {
+  width: 100%;
+  flex: 1;
+}
+
+.home-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  max-height: 500px;
+  overflow-y: auto;
+  padding-right: 1rem;
+}
+
+.home-cards-grid::-webkit-scrollbar {
+  width: 8px;
+}
+
+.home-cards-grid::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.home-cards-grid::-webkit-scrollbar-thumb {
+  background: rgba(160, 196, 255, 0.5);
+  border-radius: 4px;
+}
+
+.home-cards-grid::-webkit-scrollbar-thumb:hover {
+  background: rgba(160, 196, 255, 0.7);
+}
+
+.home-card-item {
+  background: linear-gradient(135deg, #e0e6ed 60%, #a0c4ff 100%);
+  backdrop-filter: blur(8px);
+  border-radius: 18px;
+  box-shadow: 0 6px 25px rgba(0, 56, 168, 0.15);
+  border: 1.5px solid #a0c4ff;
+  padding: 2.5rem;
+  color: #0038a8;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  min-height: 140px;
+}
+
+.home-card-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(0, 56, 168, 0.25);
+}
+
+.home-card-item::before {
+  content: "";
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 35px;
+  height: 35px;
+  background: radial-gradient(circle, #a0c4ff 60%, transparent 100%);
+  border-radius: 50%;
+  opacity: 0.6;
+}
+
+.home-card-number {
+  font-size: 1.2rem;
+  font-family: 'Roboto Mono', monospace;
+  letter-spacing: 2px;
+  margin-bottom: 1.2rem;
+  color: #222e50;
+  font-weight: 600;
+}
+
+.home-card-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  gap: 1rem;
+}
+
+.home-card-type {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #155724;
+  text-transform: uppercase;
+  background: rgba(21, 87, 36, 0.15);
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  letter-spacing: 0.5px;
+}
+
+.home-card-cvv {
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.home-card-expiry {
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.home-no-cards {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  color: #e6f0fa;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+.home-no-cards p {
+  margin: 0.8rem 0;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.home-no-cards a {
+  color: #a0c4ff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.home-no-cards a:hover {
+  text-decoration: underline !important;
+  color: #ffffff;
+}
+
+/* Loans Section Styles */
+.home-loans-section {
+  width: 100%;
+  flex: 1;
+}
+
+.home-loans-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  max-height: 500px;
+  overflow-y: auto;
+  padding-right: 1rem;
+}
+
+.home-loans-grid::-webkit-scrollbar {
+  width: 8px;
+}
+
+.home-loans-grid::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.home-loans-grid::-webkit-scrollbar-thumb {
+  background: rgba(160, 196, 255, 0.5);
+  border-radius: 4px;
+}
+
+.home-loans-grid::-webkit-scrollbar-thumb:hover {
+  background: rgba(160, 196, 255, 0.7);
+}
+
+.home-loan-item {
+  background: linear-gradient(135deg, #f0f4f8 60%, #d6e8ff 100%);
+  backdrop-filter: blur(8px);
+  border-radius: 18px;
+  box-shadow: 0 6px 25px rgba(0, 56, 168, 0.15);
+  border: 1.5px solid #a0c4ff;
+  padding: 2.5rem;
+  color: #0038a8;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  min-height: 160px;
+}
+
+.home-loan-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(0, 56, 168, 0.25);
+}
+
+.home-loan-item::before {
+  content: "💰";
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  font-size: 1.4rem;
+  opacity: 0.6;
+}
+
+.home-loan-amount {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+  color: #0038a8;
+  letter-spacing: 0.5px;
+}
+
+.home-loan-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  gap: 1.5rem;
+}
+
+.home-loan-rate {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #155724;
+  background: rgba(21, 87, 36, 0.15);
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  letter-spacing: 0.5px;
+}
+
+.home-loan-term {
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.home-loan-payment {
+  font-size: 1.1rem;
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.home-loan-status {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.status-badge {
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.4rem 1rem;
+  border-radius: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-pending {
+  background: rgba(255, 193, 7, 0.2);
+  color: #856404;
+  border: 1px solid rgba(255, 193, 7, 0.3);
+}
+
+.status-approved {
+  background: rgba(40, 167, 69, 0.2);
+  color: #155724;
+  border: 1px solid rgba(40, 167, 69, 0.3);
+}
+
+.status-paid {
+  background: rgba(23, 162, 184, 0.2);
+  color: #0c5460;
+  border: 1px solid rgba(23, 162, 184, 0.3);
+}
+
+.status-rejected {
+  background: rgba(220, 53, 69, 0.2);
+  color: #721c24;
+  border: 1px solid rgba(220, 53, 69, 0.3);
+}
+
+.home-no-loans {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  color: #e6f0fa;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+.home-no-loans p {
+  margin: 0.8rem 0;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.home-no-loans a {
+  color: #a0c4ff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.home-no-loans a:hover {
+  text-decoration: underline !important;
+  color: #ffffff;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .home-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    max-width: 1200px;
+    padding: 2.5rem 2rem;
+    grid-template-areas: 
+      "account cards"
+      "loans cards";
+  }
+  
+  .home-card {
+    min-height: 350px;
+  }
+}
+
+@media (max-width: 768px) {
+  .home-container {
+    grid-template-columns: 1fr;
+    padding: 2rem 1.5rem;
+    gap: 2.5rem;
+    grid-template-areas: 
+      "account"
+      "cards"
+      "loans";
+  }
+  
+  .home-card {
+    padding: 2.5rem 2rem;
+    min-height: auto;
+  }
+  
+  .home-title {
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .home-card-item, .home-loan-item {
+    padding: 2rem;
+    min-height: auto;
+  }
+  
+  .home-card-number, .home-loan-amount {
+    font-size: 1.1rem;
+  }
+  
+  .home-loan-details {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .home-cards-grid, .home-loans-grid {
+    max-height: 400px;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-container {
+    padding: 1.5rem 1rem;
+    gap: 2rem;
+    grid-template-areas: 
+      "account"
+      "cards"
+      "loans";
+  }
+  
+  .home-card {
+    padding: 2rem 1.5rem;
+  }
+  
+  .home-title {
+    font-size: 1.4rem;
+  }
+  
+  .home-card-details {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .home-loan-amount {
+    font-size: 1.2rem;
+  }
+  
+  .home-cards-grid, .home-loans-grid {
+    gap: 1.5rem;
+    max-height: 350px;
+    padding-right: 0.5rem;
+  }
+  
+  .home-card-item, .home-loan-item {
+    padding: 1.8rem;
+  }
 }
