@@ -9,18 +9,42 @@
 }
 
 .loan-form {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(12px);
-  border-radius: 18px;
-  box-shadow: 0 8px 32px rgba(0, 56, 168, 0.15);
-  padding: 3rem 2.5rem;
-  max-width: 500px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 100%);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  box-shadow: 
+    0 25px 45px rgba(0, 56, 168, 0.15),
+    0 10px 30px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    inset 0 -1px 0 rgba(0, 56, 168, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 48px 40px;
+  max-width: 550px;
   width: 100%;
-  color: #333;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #0038a8;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 28px;
+  position: relative;
+  overflow: hidden;
+}
+
+.loan-form::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg width="60" height="60" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse"><path d="M 30 0 L 0 0 0 30" fill="none" stroke="rgba(0,56,168,0.02)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.loan-form > * {
+  position: relative;
+  z-index: 1;
 }
 
 .loan-form-title {
@@ -48,28 +72,37 @@
 }
 
 .loan-form-label {
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 1.05rem;
+  font-weight: 700;
   color: #0038a8;
-  margin-bottom: 0.3rem;
+  margin-bottom: 8px;
+  letter-spacing: 0.3px;
 }
 
 .loan-form-input {
-  padding: 1rem;
-  border-radius: 10px;
-  border: 2px solid rgba(160, 196, 255, 0.3);
-  background: rgba(255, 255, 255, 0.8);
-  color: #333;
-  font-size: 1rem;
+  padding: 16px 20px;
+  border-radius: 12px;
+  border: 2px solid rgba(0, 56, 168, 0.2);
+  background: rgba(255, 255, 255, 0.7);
+  color: #0038a8;
+  font-size: 1.05rem;
+  font-weight: 500;
   outline: none;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0, 56, 168, 0.05);
+  backdrop-filter: blur(10px);
+  box-shadow: 
+    0 4px 15px rgba(0, 56, 168, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  letter-spacing: 0.3px;
 }
 
 .loan-form-input:focus {
   border-color: #0038a8;
   background: rgba(255, 255, 255, 0.95);
-  box-shadow: 0 4px 16px rgba(0, 56, 168, 0.15);
+  box-shadow: 
+    0 0 0 4px rgba(0, 56, 168, 0.15),
+    0 8px 25px rgba(0, 56, 168, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
   transform: translateY(-1px);
 }
 
@@ -79,30 +112,55 @@
 }
 
 .loan-form-button {
-  background: linear-gradient(135deg, #0038a8 0%, #a0c4ff 100%);
+  background: linear-gradient(135deg, #0038a8 0%, #0052cc 100%);
   color: white;
   font-weight: 700;
   border: none;
   border-radius: 12px;
-  padding: 1rem 2rem;
-  margin-top: 1rem;
+  padding: 16px 32px;
+  margin-top: 20px;
   cursor: pointer;
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 20px rgba(0, 56, 168, 0.3);
+  box-shadow: 
+    0 8px 25px rgba(0, 56, 168, 0.3),
+    0 4px 15px rgba(0, 56, 168, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.loan-form-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
 }
 
 .loan-form-button:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 30px rgba(0, 56, 168, 0.4);
-  background: linear-gradient(135deg, #002a80 0%, #8bb5ff 100%);
+  box-shadow: 
+    0 12px 35px rgba(0, 56, 168, 0.4),
+    0 6px 20px rgba(0, 56, 168, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  background: linear-gradient(135deg, #0052cc 0%, #0066ff 100%);
+}
+
+.loan-form-button:hover::before {
+  left: 100%;
 }
 
 .loan-form-button:active {
   transform: translateY(-1px);
-  box-shadow: 0 4px 20px rgba(0, 56, 168, 0.3);
+  box-shadow: 
+    0 6px 20px rgba(0, 56, 168, 0.3),
+    0 3px 10px rgba(0, 56, 168, 0.2);
 }
 
 .loan-form-button:disabled {
@@ -113,92 +171,131 @@
 }
 
 .loan-form-info {
-  background: rgba(160, 196, 255, 0.15);
+  background: rgba(160, 196, 255, 0.08);
   border-left: 4px solid #0038a8;
-  padding: 1rem;
-  border-radius: 8px;
-  margin-top: 1rem;
+  padding: 16px 20px;
+  border-radius: 12px;
+  margin-top: 20px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 56, 168, 0.1);
+  box-shadow: 0 4px 15px rgba(0, 56, 168, 0.05);
 }
 
 .loan-form-info p {
   margin: 0;
-  font-size: 0.9rem;
-  color: #555;
-  line-height: 1.4;
+  font-size: 1rem;
+  color: #334155;
+  line-height: 1.6;
+  font-weight: 500;
 }
 
 .loan-form-success {
-  background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
-  color: #155724;
-  padding: 1rem;
-  border-radius: 10px;
-  margin-bottom: 1rem;
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(34, 197, 94, 0.08) 100%);
+  color: #0038a8;
+  padding: 16px 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
   text-align: center;
-  font-weight: 600;
-  font-size: 1rem;
-  box-shadow: 0 2px 8px rgba(21, 87, 36, 0.1);
-  border: 1px solid rgba(21, 87, 36, 0.2);
+  font-weight: 700;
+  font-size: 1.1rem;
+  backdrop-filter: blur(10px);
+  box-shadow: 
+    0 8px 25px rgba(34, 197, 94, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  border: 2px solid rgba(34, 197, 94, 0.3);
+  animation: slideInDown 0.6s ease-out;
 }
 
 .loan-form-error {
-  background: linear-gradient(135deg, #f8d7da 0%, #f1aeb5 100%);
-  color: #721c24;
-  padding: 1rem;
-  border-radius: 10px;
-  margin-bottom: 1rem;
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.15) 0%, rgba(220, 38, 38, 0.08) 100%);
+  color: #dc2626;
+  padding: 16px 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
   text-align: center;
-  font-weight: 600;
-  font-size: 0.9rem;
-  box-shadow: 0 2px 8px rgba(114, 28, 36, 0.1);
-  border: 1px solid rgba(114, 28, 36, 0.2);
+  font-weight: 700;
+  font-size: 1rem;
+  backdrop-filter: blur(10px);
+  box-shadow: 
+    0 8px 25px rgba(220, 38, 38, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  border: 2px solid rgba(220, 38, 38, 0.3);
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes slideInDown {
+  from { 
+    opacity: 0; 
+    transform: translateY(-20px) scale(0.95);
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
   .loan-form-container {
-    padding: 1rem;
+    padding: 1.5rem;
     min-height: 60vh;
   }
   
   .loan-form {
-    padding: 2rem 1.5rem;
-    max-width: 100%;
+    padding: 36px 24px;
+    max-width: calc(100vw - 3rem);
   }
   
   .loan-form-title {
-    font-size: 1.6rem;
+    font-size: 1.7rem;
   }
   
   .loan-form-subtitle {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
   }
   
   .loan-form-input {
-    padding: 0.8rem;
+    padding: 14px 16px;
     font-size: 1rem;
   }
   
   .loan-form-button {
-    padding: 0.8rem 1.5rem;
-    font-size: 1rem;
+    padding: 14px 28px;
+    font-size: 1.05rem;
   }
 }
 
 @media (max-width: 480px) {
+  .loan-form-container {
+    padding: 1rem;
+  }
+  
   .loan-form {
-    padding: 1.5rem 1rem;
+    padding: 28px 20px;
+    border-radius: 20px;
   }
   
   .loan-form-title {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
   }
   
   .loan-form-input {
-    padding: 0.7rem;
+    padding: 12px 14px;
+    font-size: 0.95rem;
   }
   
   .loan-form-button {
-    padding: 0.7rem 1.2rem;
-    font-size: 0.9rem;
+    padding: 12px 24px;
+    font-size: 1rem;
+  }
+  
+  .loan-form-group {
+    gap: 20px;
   }
 }
