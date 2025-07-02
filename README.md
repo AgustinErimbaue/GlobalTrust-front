@@ -1,4 +1,4 @@
-# 🏦 GlobalTrust - Banking Frontend Application
+c# 🏦 GlobalTrust - Banking Frontend Application
 
 ![React](https://img.shields.io/badge/React-19.1.0-blue)
 ![Vite](https://img.shields.io/badge/Vite-6.3.5-green)
