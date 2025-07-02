@@ -190,7 +190,6 @@
   color: #ffffff;
 }
 
-/* Loans Section Styles */
 .home-loans-section {
   width: 100%;
   flex: 1;
@@ -356,7 +355,6 @@
   color: #ffffff;
 }
 
-/* Responsive Design */
 @media (max-width: 1200px) {
   .home-container {
     grid-template-columns: 1fr 1fr;

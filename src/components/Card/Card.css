@@ -143,7 +143,6 @@
   background: rgba(255, 255, 255, 0.12);
 }
 
-/* Select Dropdown Styling */
 .card-input select {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
@@ -164,7 +163,6 @@
   color: #ffffff;
 }
 
-/* Ensure select dropdown visibility */
 .card-input select option {
   background-color: #0038a8 !important;
   color: #ffffff !important;

@@ -22,7 +22,7 @@
   pointer-events: none;
 }
 
-/* Register Form Container */
+
 .register-form {
   max-width: 450px;
   width: 100%;
@@ -210,7 +210,6 @@
   margin-bottom: 1rem;
 }
 
-/* Login Link */
 .register-login-link {
   text-align: center;
   margin-top: 1.5rem;

@@ -16,7 +16,6 @@ const Header = () => {
     setMobileMenuOpen(false);
   };
 
-  // Cerrar menú al hacer clic fuera
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (mobileMenuOpen && 
@@ -30,7 +29,6 @@ const Header = () => {
     return () => document.removeEventListener('click', handleClickOutside);
   }, [mobileMenuOpen]);
 
-  // Cerrar menú al redimensionar ventana y controlar scroll del body
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth > 768) {
@@ -38,7 +36,6 @@ const Header = () => {
       }
     };
 
-    // Prevenir scroll cuando el menú está abierto
     if (mobileMenuOpen) {
       document.body.style.overflow = 'hidden';
     } else {
@@ -48,7 +45,7 @@ const Header = () => {
     window.addEventListener('resize', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);
-      document.body.style.overflow = 'unset'; // Limpiar al desmontar
+      document.body.style.overflow = 'unset';
     };
   }, [mobileMenuOpen]);
 

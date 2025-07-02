@@ -12,17 +12,62 @@ const getUserById = async (userId) => {
   return res.data;
 };
 const register = async (registerData) => {
-  const res = await axios.post(`${API_URL}/register`, registerData);
-  return res.data;
+  try {
+    const res = await axios.post(`${API_URL}/register`, registerData);
+    if (res.data && res.data.user && res.data.token) {
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+      localStorage.setItem("token", res.data.token);
+      return res.data;
+    } else {
+      throw new Error("Invalid response from server");
+    }
+  } catch (error) {
+    // Limpiar cualquier dato que pueda existir
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    
+    if (error.response) {
+      const errorMessage = error.response.data?.msg || 
+                          error.response.data?.message || 
+                          "Error al crear el usuario";
+      throw new Error(errorMessage);
+    } else if (error.request) {
+      throw new Error("Server is not responding");
+    } else {
+      throw new Error(error.message || "Registration failed");
+    }
+  }
 };
 
 const login = async (loginData) => {
-  const res = await axios.post(`${API_URL}/login`, loginData);
-  if (res.data) {
-    localStorage.setItem("user", JSON.stringify(res.data.user));
-    localStorage.setItem("token", res.data.token);
+  try {
+    const res = await axios.post(`${API_URL}/login`, loginData);
+    if (res.data && res.data.user && res.data.token) {
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+      localStorage.setItem("token", res.data.token);
+      return res.data;
+    } else {
+      throw new Error("Invalid response from server");
+    }
+  } catch (error) {
+    // Limpiar cualquier dato que pueda existir
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    
+    if (error.response) {
+      // El servidor respondió con un código de error
+      const errorMessage = error.response.data?.msg || 
+                          error.response.data?.message || 
+                          "Usuario o contraseña incorrectos";
+      throw new Error(errorMessage);
+    } else if (error.request) {
+      // La petición fue hecha pero no hubo respuesta
+      throw new Error("Server is not responding");
+    } else {
+      // Error en la configuración de la petición
+      throw new Error(error.message || "Login failed");
+    }
   }
-  return res.data;
 };
 
 const logout = async () => {

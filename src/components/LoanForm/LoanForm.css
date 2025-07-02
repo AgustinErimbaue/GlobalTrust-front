@@ -240,7 +240,6 @@
   75% { transform: translateX(5px); }
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .loan-form-container {
     padding: 1.5rem;

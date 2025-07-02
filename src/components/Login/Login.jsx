@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./Login.css";
-import { useDispatch } from "react-redux";
-import { login } from "../../features/auth/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { login, clearError } from "../../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 const Login = () => {
   const initialState = {
@@ -10,10 +10,17 @@ const Login = () => {
   };
   const [loginData, setLoginData] = useState(initialState);
   const [errors, setErrors] = useState({});
-  const [success, setSuccess] = useState(false);
+  
   const dispatch = useDispatch();
+  const { user, isLoading, error } = useSelector((state) => state.auth);
   const { email, password } = loginData;
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, [user, navigate]);
 
   const validate = () => {
     const newErrors = {};
@@ -35,29 +42,27 @@ const Login = () => {
   const handleInputChange = (e) => {
     setLoginData({ ...loginData, [e.target.name]: e.target.value });
     setErrors({ ...errors, [e.target.name]: "" });
-    setSuccess(false);
+    if (error) {
+      dispatch(clearError());
+    }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = validate();
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
       dispatch(login(loginData));
-      setSuccess(true);
-      setLoginData(initialState);
-      setTimeout(() => {
-        navigate("/");
-      }, 2000);
     }
   };
 
   return (
     <form className="login-form" onSubmit={handleSubmit} noValidate>
-      {success && (
-        <div className="login-success">Login successful!</div>
+      {error && (
+        <div className="login-error-message">{error}</div>
       )}
+      
       <label className="login-label">
         Email:
         <input
@@ -67,6 +72,7 @@ const Login = () => {
           value={email}
           onChange={handleInputChange}
           required
+          disabled={isLoading}
         />
         {errors.email && <span className="login-error">{errors.email}</span>}
       </label>
@@ -80,13 +86,19 @@ const Login = () => {
           value={password}
           onChange={handleInputChange}
           required
+          disabled={isLoading}
         />
         {errors.password && (
           <span className="login-error">{errors.password}</span>
         )}
       </label>
-      <button className="login-submit" type="submit">
-        Login
+      
+      <button 
+        className="login-submit" 
+        type="submit" 
+        disabled={isLoading}
+      >
+        {isLoading ? "Logging in..." : "Login"}
       </button>
     </form>
   );
