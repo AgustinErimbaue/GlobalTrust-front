@@ -154,28 +154,50 @@
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 8px;
-  padding: 0.5rem;
+  padding: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
+  min-width: 48px;
+  min-height: 48px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  user-select: none;
+  position: relative;
+  z-index: 1001;
 }
 
-.header-mobile-toggle:hover {
+.header-mobile-toggle:hover,
+.header-mobile-toggle:active {
   background: rgba(255, 255, 255, 0.2);
   border-color: rgba(255, 255, 255, 0.3);
 }
 
 .header-mobile-toggle span {
   display: block;
-  width: 25px;
+  width: 22px;
   height: 3px;
   background: #ffffff;
-  margin: 5px 0;
   border-radius: 2px;
   transition: all 0.3s ease;
 }
 
+.header-mobile-toggle.active span:nth-child(1) {
+  transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.header-mobile-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.header-mobile-toggle.active span:nth-child(3) {
+  transform: rotate(45deg) translate(-5px, -6px);
+}
+
 .header-mobile-menu {
-  display: none;
   position: absolute;
   top: 100%;
   left: 0;
@@ -185,23 +207,38 @@
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   z-index: 999;
+  transform: translateY(-10px);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  max-height: 0;
+  overflow: hidden;
 }
 
 .header-mobile-menu.active {
-  display: block;
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+  max-height: 500px;
 }
 
 .header-mobile-links {
   display: flex;
   flex-direction: column;
   padding: 1.5rem;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 .header-mobile-links .header-link {
   text-align: center;
   padding: 1rem;
   margin: 0;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 @media (max-width: 1024px) {
@@ -237,7 +274,7 @@
   }
   
   .header-mobile-toggle {
-    display: block;
+    display: flex;
   }
   
   .header-user-info {
