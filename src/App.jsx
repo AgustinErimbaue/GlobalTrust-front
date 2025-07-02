@@ -9,6 +9,8 @@ import Loan from "./components/Loan/Loan";
 import Logout from "./components/Logout/Logout";
 import "./App.css";
 import Account from "./components/Account/Account";
+import LoanForm from "./components/LoanForm/LoanForm";
+
 
 function App() {
   return (
@@ -24,6 +26,7 @@ function App() {
           <Route path="/loan" element={<Loan />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/account" element={<Account />} />
+          <Route path="/loan-form" element={<LoanForm />} />
         </Routes>
       </BrowserRouter>
     </>

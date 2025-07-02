@@ -1,7 +1,14 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import './Loan.css'
 
 const Loan = () => {
+  const navigate = useNavigate();
+
+  const handleApplyClick = () => {
+    navigate('/loan-form');
+  };
+
   return (
     <div className="loan-container">
       <div className="loan-hero">
@@ -43,7 +50,7 @@ const Loan = () => {
             </div>
           </div>
 
-          <button className="loan-cta-button">
+          <button className="loan-cta-button" onClick={handleApplyClick}>
             Apply for Your Personal Loan
           </button>
           
