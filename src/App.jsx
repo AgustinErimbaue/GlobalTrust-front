@@ -10,6 +10,7 @@ import Logout from "./components/Logout/Logout";
 import "./App.css";
 import Account from "./components/Account/Account";
 import LoanForm from "./components/LoanForm/LoanForm";
+import Footer from "./components/Footer/Footer";
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
           <Route path="/account" element={<Account />} />
           <Route path="/loan-form" element={<LoanForm />} />
         </Routes>
+        <Footer/>
       </BrowserRouter>
     </>
   );
