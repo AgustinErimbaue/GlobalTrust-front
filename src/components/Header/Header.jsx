@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import "./Header.css";
@@ -7,6 +7,7 @@ import Logout from "../Logout/Logout";
 const Header = () => {
   const user = useSelector((state) => state.auth.user);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
@@ -16,15 +17,12 @@ const Header = () => {
     setMobileMenuOpen(false);
   };
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (mobileMenuOpen && 
-          !event.target.closest('.header-mobile-menu') && 
-          !event.target.closest('.header-mobile-toggle')) {
-        setMobileMenuOpen(false);
-      }
-    };
+  const handleMobileNavigation = (path) => {
+    setMobileMenuOpen(false);
+    navigate(path);
+  };
 
+  useEffect(() => {
     const handleEscapeKey = (event) => {
       if (event.key === 'Escape' && mobileMenuOpen) {
         setMobileMenuOpen(false);
@@ -32,12 +30,10 @@ const Header = () => {
     };
 
     if (mobileMenuOpen) {
-      document.addEventListener('click', handleClickOutside);
       document.addEventListener('keydown', handleEscapeKey);
     }
 
     return () => {
-      document.removeEventListener('click', handleClickOutside);
       document.removeEventListener('keydown', handleEscapeKey);
     };
   }, [mobileMenuOpen]);
@@ -140,49 +136,44 @@ const Header = () => {
           <div className="header-mobile-links">
             {!user ? (
               <>
-                <Link 
-                  to="/register" 
+                <button 
                   className="header-link" 
-                  onClick={closeMobileMenu}
+                  onClick={() => handleMobileNavigation('/register')}
                   aria-label="Go to registration page"
                 >
                   Register
-                </Link>
-                <Link 
-                  to="/login" 
+                </button>
+                <button 
                   className="header-link" 
-                  onClick={closeMobileMenu}
+                  onClick={() => handleMobileNavigation('/login')}
                   aria-label="Go to login page"
                 >
                   Login
-                </Link>
+                </button>
               </>
             ) : (
               <>
-                <Link 
-                  to="/card" 
+                <button 
                   className="header-link" 
-                  onClick={closeMobileMenu}
+                  onClick={() => handleMobileNavigation('/card')}
                   aria-label="Go to card management"
                 >
                   Card
-                </Link>
-                <Link 
-                  to="/loan" 
+                </button>
+                <button 
                   className="header-link" 
-                  onClick={closeMobileMenu}
+                  onClick={() => handleMobileNavigation('/loan')}
                   aria-label="Go to loan services"
                 >
                   Loan
-                </Link>
-                <Link 
-                  to="/profile" 
+                </button>
+                <button 
                   className="header-link" 
-                  onClick={closeMobileMenu}
+                  onClick={() => handleMobileNavigation('/profile')}
                   aria-label="Go to user profile"
                 >
                   Profile
-                </Link>
+                </button>
                 <div onClick={closeMobileMenu}>
                   <Logout/>
                 </div>
@@ -191,14 +182,6 @@ const Header = () => {
           </div>
         </nav>
       </div>
-      
-      {mobileMenuOpen && (
-        <div 
-          className="mobile-menu-overlay active"
-          onClick={closeMobileMenu}
-          aria-hidden="true"
-        />
-      )}
     </>
   );
 };

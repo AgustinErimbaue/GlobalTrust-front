@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/loans/";
+const API_URL = "https://globaltrust-back.onrender.com/loans/";
 
 const createLoan = async (loanData) => {
   const token = localStorage.getItem("token");

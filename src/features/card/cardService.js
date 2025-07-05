@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/cards";
+const API_URL = "https://globaltrust-back.onrender.com/cards";
 
 const createCard = async (cardData) => {
   const token = localStorage.getItem("token");
