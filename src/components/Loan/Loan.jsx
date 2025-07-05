@@ -1,13 +1,12 @@
-import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import './Loan.css'
 
 const Loan = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const handleApplyClick = () => {
-    navigate('/loan-form');
-  };
+    navigate('/loan-form')
+  }
 
   return (
     <div className="loan-container">
@@ -20,37 +19,42 @@ const Loan = () => {
 
       <div className="loan-content">
         <div className="loan-card">
-          <div className="loan-icon">💰</div>
+          <div className="loan-icon" aria-hidden="true">💰</div>
           <h2>Need a Personal Loan?</h2>
           <p className="loan-description">
             Whether you're consolidating debt, financing a major purchase, or covering unexpected expenses, 
             our personal loans offer flexible terms and competitive rates tailored to your needs.
           </p>
           
-          <div className="loan-features">
-            <div className="feature-item">
-              <span className="feature-icon">✓</span>
+          <ul className="loan-features" role="list">
+            <li className="feature-item">
+              <span className="feature-icon" aria-hidden="true">✓</span>
               <span>Loan amounts from $1,000 to $50,000</span>
-            </div>
-            <div className="feature-item">
-              <span className="feature-icon">✓</span>
+            </li>
+            <li className="feature-item">
+              <span className="feature-icon" aria-hidden="true">✓</span>
               <span>Competitive interest rates starting at 5.99% APR</span>
-            </div>
-            <div className="feature-item">
-              <span className="feature-icon">✓</span>
+            </li>
+            <li className="feature-item">
+              <span className="feature-icon" aria-hidden="true">✓</span>
               <span>Flexible repayment terms (12-84 months)</span>
-            </div>
-            <div className="feature-item">
-              <span className="feature-icon">✓</span>
+            </li>
+            <li className="feature-item">
+              <span className="feature-icon" aria-hidden="true">✓</span>
               <span>No prepayment penalties</span>
-            </div>
-            <div className="feature-item">
-              <span className="feature-icon">✓</span>
+            </li>
+            <li className="feature-item">
+              <span className="feature-icon" aria-hidden="true">✓</span>
               <span>Quick approval process</span>
-            </div>
-          </div>
+            </li>
+          </ul>
 
-          <button className="loan-cta-button" onClick={handleApplyClick}>
+          <button 
+            className="loan-cta-button" 
+            onClick={handleApplyClick}
+            type="button"
+            aria-label="Apply for your personal loan - navigate to application form"
+          >
             Apply for Your Personal Loan
           </button>
           

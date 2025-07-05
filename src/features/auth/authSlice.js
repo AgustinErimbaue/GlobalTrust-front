@@ -108,7 +108,6 @@ export const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // Login cases
       .addCase(login.pending, (state) => {
         state.isLoading = true;
         state.error = null;
@@ -127,7 +126,6 @@ export const authSlice = createSlice({
         state.token = null;
         state.error = action.payload || "Login failed";
       })
-      // Register cases
       .addCase(register.pending, (state) => {
         state.isLoading = true;
         state.error = null;
@@ -146,7 +144,6 @@ export const authSlice = createSlice({
         state.token = null;
         state.error = action.payload || "Registration failed";
       })
-      // Logout cases
       .addCase(logout.fulfilled, (state) => {
         state.user = null;
         state.token = null;

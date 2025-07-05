@@ -12,6 +12,22 @@
     "loans cards";
 }
 
+.home-container.welcome-layout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-template-areas: none;
+  grid-template-columns: none;
+  grid-template-rows: none;
+}
+
+.home-container.welcome-layout .home-card {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  justify-content: center;
+}
+
 .home-account-section {
   grid-area: account;
 }
@@ -24,15 +40,24 @@
   grid-area: loans;
 }
 
+/* Shared glassmorphism effect */
+.glassmorphism {
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+}
+
+.glassmorphism-light {
+  backdrop-filter: blur(8px);
+  border: 1.5px solid #a0c4ff;
+}
+
 .home-card {
   background: rgba(255, 255, 255, 0.07);
-  backdrop-filter: blur(12px);
   border-radius: 20px;
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.25);
   padding: 3rem 2.5rem;
   width: 90%;
   color: #e6f0fa;
-  border: 1px solid rgba(255, 255, 255, 0.13);
   height: fit-content;
   min-height: 350px;
   display: flex;
@@ -59,12 +84,13 @@
   color: #a0c4ff;
 }
 
-.home-cards-section {
+.home-cards-section, .home-loans-section {
   width: 100%;
   flex: 1;
 }
 
-.home-cards-grid {
+/* Shared styles for cards and loans grids */
+.home-cards-grid, .home-loans-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 2rem;
@@ -73,30 +99,32 @@
   padding-right: 1rem;
 }
 
-.home-cards-grid::-webkit-scrollbar {
-  width: 8px;
+.home-cards-grid::-webkit-scrollbar, 
+.home-loans-grid::-webkit-scrollbar {
+  width: 0.5rem;
 }
 
-.home-cards-grid::-webkit-scrollbar-track {
+.home-cards-grid::-webkit-scrollbar-track, 
+.home-loans-grid::-webkit-scrollbar-track {
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
+  border-radius: 0.25rem;
 }
 
-.home-cards-grid::-webkit-scrollbar-thumb {
+.home-cards-grid::-webkit-scrollbar-thumb, 
+.home-loans-grid::-webkit-scrollbar-thumb {
   background: rgba(160, 196, 255, 0.5);
-  border-radius: 4px;
+  border-radius: 0.25rem;
 }
 
-.home-cards-grid::-webkit-scrollbar-thumb:hover {
+.home-cards-grid::-webkit-scrollbar-thumb:hover, 
+.home-loans-grid::-webkit-scrollbar-thumb:hover {
   background: rgba(160, 196, 255, 0.7);
 }
 
-.home-card-item {
-  background: linear-gradient(135deg, #e0e6ed 60%, #a0c4ff 100%);
-  backdrop-filter: blur(8px);
+/* Shared styles for card and loan items */
+.home-card-item, .home-loan-item {
   border-radius: 18px;
   box-shadow: 0 6px 25px rgba(0, 56, 168, 0.15);
-  border: 1.5px solid #a0c4ff;
   padding: 2.5rem;
   color: #0038a8;
   transition: all 0.3s ease;
@@ -105,9 +133,14 @@
   min-height: 140px;
 }
 
-.home-card-item:hover {
+.home-card-item:hover, .home-loan-item:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 30px rgba(0, 56, 168, 0.25);
+}
+
+/* Card-specific styles */
+.home-card-item {
+  background: linear-gradient(135deg, #e0e6ed 60%, #a0c4ff 100%);
 }
 
 .home-card-item::before {
@@ -119,6 +152,21 @@
   height: 35px;
   background: radial-gradient(circle, #a0c4ff 60%, transparent 100%);
   border-radius: 50%;
+  opacity: 0.6;
+}
+
+/* Loan-specific styles */
+.home-loan-item {
+  background: linear-gradient(135deg, #f0f4f8 60%, #d6e8ff 100%);
+  min-height: 160px;
+}
+
+.home-loan-item::before {
+  content: "💰";
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  font-size: 1.4rem;
   opacity: 0.6;
 }
 
@@ -188,66 +236,6 @@
 .home-no-cards a:hover {
   text-decoration: underline !important;
   color: #ffffff;
-}
-
-.home-loans-section {
-  width: 100%;
-  flex: 1;
-}
-
-.home-loans-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
-  max-height: 500px;
-  overflow-y: auto;
-  padding-right: 1rem;
-}
-
-.home-loans-grid::-webkit-scrollbar {
-  width: 8px;
-}
-
-.home-loans-grid::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
-}
-
-.home-loans-grid::-webkit-scrollbar-thumb {
-  background: rgba(160, 196, 255, 0.5);
-  border-radius: 4px;
-}
-
-.home-loans-grid::-webkit-scrollbar-thumb:hover {
-  background: rgba(160, 196, 255, 0.7);
-}
-
-.home-loan-item {
-  background: linear-gradient(135deg, #f0f4f8 60%, #d6e8ff 100%);
-  backdrop-filter: blur(8px);
-  border-radius: 18px;
-  box-shadow: 0 6px 25px rgba(0, 56, 168, 0.15);
-  border: 1.5px solid #a0c4ff;
-  padding: 2.5rem;
-  color: #0038a8;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-  min-height: 160px;
-}
-
-.home-loan-item:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 30px rgba(0, 56, 168, 0.25);
-}
-
-.home-loan-item::before {
-  content: "💰";
-  position: absolute;
-  top: 18px;
-  right: 18px;
-  font-size: 1.4rem;
-  opacity: 0.6;
 }
 
 .home-loan-amount {
@@ -355,6 +343,246 @@
   color: #ffffff;
 }
 
+.welcome-container {
+  text-align: center;
+  padding: 2rem 0;
+  color: #ffffff;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.welcome-container h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #ffffff 0%, #a0c4ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none;
+  letter-spacing: 1px;
+}
+
+.welcome-container .tagline {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 2.5rem;
+  color: #e6f0fa;
+  opacity: 0.9;
+  letter-spacing: 0.5px;
+}
+
+.features {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  padding: 2rem;
+  margin: 2rem 0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: left;
+}
+
+.features h2 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: #a0c4ff;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+.features ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.features li {
+  padding: 0.8rem 0;
+  font-size: 1rem;
+  color: #e6f0fa;
+  position: relative;
+  padding-left: 2rem;
+  line-height: 1.6;
+  transition: all 0.3s ease;
+}
+
+.features li:before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 0.8rem;
+  color: #a0c4ff;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.features li:hover {
+  color: #ffffff;
+  padding-left: 2.2rem;
+}
+
+.cta-section {
+  margin-top: 2.5rem;
+  text-align: center;
+}
+
+.cta-section p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  color: #e6f0fa;
+  line-height: 1.6;
+}
+
+.login-btn {
+  background: linear-gradient(135deg, #a0c4ff 0%, #ffffff 100%);
+  color: #0038a8;
+  border: none;
+  padding: 1rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(160, 196, 255, 0.3);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  min-width: 180px;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-btn:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: left 0.5s ease;
+}
+
+.login-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(160, 196, 255, 0.4);
+  background: linear-gradient(135deg, #ffffff 0%, #a0c4ff 100%);
+}
+
+.login-btn:hover:before {
+  left: 100%;
+}
+
+.login-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(160, 196, 255, 0.3);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .home-container.welcome-layout {
+    padding: 2rem 1.5rem;
+    min-height: 80vh;
+  }
+  
+  .home-container.welcome-layout .home-card {
+    max-width: 100%;
+    padding: 2.5rem 2rem;
+    min-height: auto;
+  }
+  
+  .welcome-container h1 {
+    font-size: 2rem;
+  }
+  
+  .welcome-container .tagline {
+    font-size: 1.1rem;
+  }
+  
+  .features {
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+  }
+  
+  .features h2 {
+    font-size: 1.2rem;
+  }
+  
+  .features li {
+    font-size: 0.95rem;
+    padding: 0.6rem 0;
+  }
+  
+  .login-btn {
+    padding: 0.9rem 2rem;
+    font-size: 1rem;
+    min-width: 160px;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-container.welcome-layout {
+    padding: 1.5rem 1rem;
+    min-height: 75vh;
+  }
+  
+  .home-container.welcome-layout .home-card {
+    padding: 2rem 1.5rem;
+  }
+  .welcome-container {
+    padding: 1.5rem 0;
+  }
+  
+  .welcome-container h1 {
+    font-size: 1.8rem;
+    margin-bottom: 0.8rem;
+  }
+  
+  .welcome-container .tagline {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .features {
+    padding: 1.2rem;
+    margin: 1.2rem 0;
+  }
+  
+  .features h2 {
+    font-size: 1.1rem;
+    margin-bottom: 1.2rem;
+  }
+  
+  .features li {
+    font-size: 0.9rem;
+    padding: 0.5rem 0;
+    padding-left: 1.8rem;
+  }
+  
+  .cta-section {
+    margin-top: 2rem;
+  }
+  
+  .cta-section p {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .login-btn {
+    padding: 0.8rem 1.8rem;
+    font-size: 0.95rem;
+    min-width: 140px;
+  }
+}
+
 @media (max-width: 1200px) {
   .home-container {
     grid-template-columns: 1fr 1fr;
@@ -372,7 +600,7 @@
 }
 
 @media (max-width: 768px) {
-  .home-container {
+  .home-container:not(.welcome-layout) {
     grid-template-columns: 1fr;
     padding: 2rem 1.5rem;
     gap: 2.5rem;
@@ -385,6 +613,7 @@
   .home-card {
     padding: 2.5rem 2rem;
     min-height: auto;
+    width: 100%;
   }
   
   .home-title {
@@ -413,7 +642,7 @@
 }
 
 @media (max-width: 480px) {
-  .home-container {
+  .home-container:not(.welcome-layout) {
     padding: 1.5rem 1rem;
     gap: 2rem;
     grid-template-areas: 
@@ -449,4 +678,16 @@
   .home-card-item, .home-loan-item {
     padding: 1.8rem;
   }
+}
+
+/* Utility classes for common patterns */
+.text-center { text-align: center; }
+.flex-center { 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+}
+.flex-column { 
+  display: flex; 
+  flex-direction: column; 
 }

@@ -22,7 +22,6 @@ const register = async (registerData) => {
       throw new Error("Invalid response from server");
     }
   } catch (error) {
-    // Limpiar cualquier dato que pueda existir
     localStorage.removeItem("user");
     localStorage.removeItem("token");
     
@@ -50,21 +49,17 @@ const login = async (loginData) => {
       throw new Error("Invalid response from server");
     }
   } catch (error) {
-    // Limpiar cualquier dato que pueda existir
     localStorage.removeItem("user");
     localStorage.removeItem("token");
     
     if (error.response) {
-      // El servidor respondió con un código de error
       const errorMessage = error.response.data?.msg || 
                           error.response.data?.message || 
                           "Usuario o contraseña incorrectos";
       throw new Error(errorMessage);
     } else if (error.request) {
-      // La petición fue hecha pero no hubo respuesta
       throw new Error("Server is not responding");
     } else {
-      // Error en la configuración de la petición
       throw new Error(error.message || "Login failed");
     }
   }

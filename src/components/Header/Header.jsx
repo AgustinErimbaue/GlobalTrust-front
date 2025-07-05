@@ -25,8 +25,21 @@ const Header = () => {
       }
     };
 
-    document.addEventListener('click', handleClickOutside);
-    return () => document.removeEventListener('click', handleClickOutside);
+    const handleEscapeKey = (event) => {
+      if (event.key === 'Escape' && mobileMenuOpen) {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    if (mobileMenuOpen) {
+      document.addEventListener('click', handleClickOutside);
+      document.addEventListener('keydown', handleEscapeKey);
+    }
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+      document.removeEventListener('keydown', handleEscapeKey);
+    };
   }, [mobileMenuOpen]);
 
   useEffect(() => {
@@ -37,116 +50,156 @@ const Header = () => {
     };
 
     if (mobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.classList.add('mobile-menu-open');
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.classList.remove('mobile-menu-open');
     }
 
     window.addEventListener('resize', handleResize);
+    
     return () => {
       window.removeEventListener('resize', handleResize);
-      document.body.style.overflow = 'unset';
+      document.body.classList.remove('mobile-menu-open');
     };
   }, [mobileMenuOpen]);
 
   return (
-    <div className="header-container">
-      <nav className="header-nav">
-        <div className="header-brand">
-          <Link to="/" className="header-logo">
-            GlobalTrust
-          </Link>
-        </div>
+    <>
+      <div className="header-container">
+        <nav className="header-nav">
+          <div className="header-brand">
+            <Link to="/" className="header-logo">
+              GlobalTrust
+            </Link>
+          </div>
+          
+          <div className="header-links">
+            <div className="header-nav-links">
+              {!user ? (
+                <>
+                  <Link to="/register" className="header-link">
+                    Register
+                  </Link>
+                  <Link to="/login" className="header-link">
+                    Login
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link to="/card" className="header-link">
+                    Card
+                  </Link>
+                  <Link to="/loan" className="header-link">
+                    Loan
+                  </Link>
+                  <Link to="/profile" className="header-link">
+                    Profile
+                  </Link>
+                </>
+              )}
+            </div>
+            
+            {user && (
+              <div className="header-user-actions">
+                <div className="header-user-info">
+                  <span>Welcome, {user.fullName || 'User'}</span>
+                  <div className="header-user-avatar">
+                    {user.name ? user.name.charAt(0).toUpperCase() : 'U'}
+                  </div>
+                </div>
+                <Logout/>
+              </div>
+            )}
+          </div>
+          
+          <button 
+            className={`header-mobile-toggle ${mobileMenuOpen ? 'active' : ''}`} 
+            onClick={toggleMobileMenu}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggleMobileMenu();
+              }
+            }}
+            type="button"
+            aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-navigation"
+          >
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </button>
+        </nav>
         
-        <div className="header-links">
-          <div className="header-nav-links">
+        <nav 
+          className={`header-mobile-menu ${mobileMenuOpen ? 'active' : ''}`}
+          id="mobile-navigation"
+          aria-label="Mobile navigation"
+        >
+          <div className="header-mobile-links">
             {!user ? (
               <>
-                <Link to="/register" className="header-link">
+                <Link 
+                  to="/register" 
+                  className="header-link" 
+                  onClick={closeMobileMenu}
+                  aria-label="Go to registration page"
+                >
                   Register
                 </Link>
-                <Link to="/login" className="header-link">
+                <Link 
+                  to="/login" 
+                  className="header-link" 
+                  onClick={closeMobileMenu}
+                  aria-label="Go to login page"
+                >
                   Login
                 </Link>
               </>
             ) : (
               <>
-                <Link to="/card" className="header-link">
+                <Link 
+                  to="/card" 
+                  className="header-link" 
+                  onClick={closeMobileMenu}
+                  aria-label="Go to card management"
+                >
                   Card
                 </Link>
-                <Link to="/loan" className="header-link">
+                <Link 
+                  to="/loan" 
+                  className="header-link" 
+                  onClick={closeMobileMenu}
+                  aria-label="Go to loan services"
+                >
                   Loan
                 </Link>
-                <Link to="/profile" className="header-link">
+                <Link 
+                  to="/profile" 
+                  className="header-link" 
+                  onClick={closeMobileMenu}
+                  aria-label="Go to user profile"
+                >
                   Profile
                 </Link>
+                <div onClick={closeMobileMenu}>
+                  <Logout/>
+                </div>
               </>
             )}
           </div>
-          
-          {user && (
-            <div className="header-user-actions">
-              <div className="header-user-info">
-                <span>Welcome, {user.fullName || 'User'}</span>
-                <div className="header-user-avatar">
-                  {user.name ? user.name.charAt(0).toUpperCase() : 'U'}
-                </div>
-              </div>
-              <Logout/>
-            </div>
-          )}
-        </div>
-        
-        <div 
-          className={`header-mobile-toggle ${mobileMenuOpen ? 'active' : ''}`} 
-          onClick={toggleMobileMenu}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault();
-              toggleMobileMenu();
-            }
-          }}
-          role="button"
-          tabIndex={0}
-          aria-label="Toggle mobile menu"
-          aria-expanded={mobileMenuOpen}
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-      </nav>
-      
-      <div className={`header-mobile-menu ${mobileMenuOpen ? 'active' : ''}`}>
-        <div className="header-mobile-links">
-          {!user ? (
-            <>
-              <Link to="/register" className="header-link" onClick={closeMobileMenu}>
-                Register
-              </Link>
-              <Link to="/login" className="header-link" onClick={closeMobileMenu}>
-                Login
-              </Link>
-            </>
-          ) : (
-            <>
-              <Link to="/card" className="header-link" onClick={closeMobileMenu}>
-                Card
-              </Link>
-              <Link to="/loan" className="header-link" onClick={closeMobileMenu}>
-                Loan
-              </Link>
-              <Link to="/profile" className="header-link" onClick={closeMobileMenu}>
-                Profile
-              </Link>
-              <div onClick={closeMobileMenu}>
-                <Logout/>
-              </div>
-            </>
-          )}
-        </div>
+        </nav>
       </div>
-    </div>
+      
+      {mobileMenuOpen && (
+        <div 
+          className="mobile-menu-overlay active"
+          onClick={closeMobileMenu}
+          aria-hidden="true"
+        />
+      )}
+    </>
   );
 };
 
