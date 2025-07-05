@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://globaltrust-back.onrender.com/users";
+const API_URL = "http://localhost:8080/users";
 
 const getUserById = async (userId) => {
   const token = localStorage.getItem("token");

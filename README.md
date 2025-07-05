@@ -41,7 +41,7 @@ Una aplicación bancaria moderna y elegante construida con React, Redux Toolkit 
 ### Prerrequisitos
 - Node.js (versión 16 o superior)
 - npm o yarn
-- Backend API desplegado en `https://globaltrust-back.onrender.com/`
+- Backend API corriendo en `http://localhost:8080`
 
 ### Instalación
 
@@ -59,7 +59,7 @@ npm install
 3. **Configurar variables de entorno**
 ```bash
 # Crear archivo .env en la raíz del proyecto
-VITE_API_URL=https://globaltrust-back.onrender.com
+VITE_API_URL=http://localhost:8080
 ```
 
 4. **Ejecutar en modo desarrollo**
