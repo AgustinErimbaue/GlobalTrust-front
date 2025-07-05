@@ -94,21 +94,23 @@ const LoanForm = () => {
   };
   return (
     <div className="loan-form-container">
-      <form className="loan-form" onSubmit={handleSubmit}>
-        <h2 className="loan-form-title">Personal Loan Application</h2>
-        <p className="loan-form-subtitle">
-          Enter the loan amount you need and we'll process your application
-        </p>
+      <form className="loan-form" onSubmit={handleSubmit} noValidate>
+        <header>
+          <h1 className="loan-form-title">Personal Loan Application</h1>
+          <p className="loan-form-subtitle">
+            Enter the loan amount you need and we'll process your application
+          </p>
+        </header>
 
         {showSuccess && (
-          <div className="loan-form-success">
+          <div className="loan-form-success" role="alert" aria-live="polite">
             🎉 Loan application submitted successfully! 
             <br />
             <small>Redirecting you to your account... We'll review your application and get back to you within 24-48 hours.</small>
           </div>
         )}
 
-        <div className="loan-form-group">
+        <fieldset className="loan-form-group">
           <label htmlFor="amount" className="loan-form-label">
             Loan Amount ($)
           </label>
@@ -124,15 +126,17 @@ const LoanForm = () => {
             max="50000"
             step="100"
             required
+            aria-describedby={errors.amount ? "amount-error" : undefined}
+            aria-invalid={!!errors.amount}
           />
           {errors.amount && (
-            <div className="loan-form-error">
+            <div className="loan-form-error" id="amount-error" role="alert">
               {errors.amount}
             </div>
           )}
-        </div>
+        </fieldset>
 
-        <div className="loan-form-group">
+        <fieldset className="loan-form-group">
           <label htmlFor="interestRate" className="loan-form-label">
             Interest Rate (%)
           </label>
@@ -148,15 +152,17 @@ const LoanForm = () => {
             max="30"
             step="0.01"
             required
+            aria-describedby={errors.interestRate ? "interestRate-error" : undefined}
+            aria-invalid={!!errors.interestRate}
           />
           {errors.interestRate && (
-            <div className="loan-form-error">
+            <div className="loan-form-error" id="interestRate-error" role="alert">
               {errors.interestRate}
             </div>
           )}
-        </div>
+        </fieldset>
 
-        <div className="loan-form-group">
+        <fieldset className="loan-form-group">
           <label htmlFor="termMonths" className="loan-form-label">
             Loan Term (Months)
           </label>
@@ -167,6 +173,8 @@ const LoanForm = () => {
             onChange={handleInputChange}
             className="loan-form-input"
             required
+            aria-describedby={errors.termMonths ? "termMonths-error" : undefined}
+            aria-invalid={!!errors.termMonths}
           >
             <option value="">Select loan term</option>
             <option value="12">12 months (1 year)</option>
@@ -178,13 +186,13 @@ const LoanForm = () => {
             <option value="84">84 months (7 years)</option>
           </select>
           {errors.termMonths && (
-            <div className="loan-form-error">
+            <div className="loan-form-error" id="termMonths-error" role="alert">
               {errors.termMonths}
             </div>
           )}
-        </div>
+        </fieldset>
 
-        <div className="loan-form-group">
+        <fieldset className="loan-form-group">
           <label htmlFor="monthlyPayment" className="loan-form-label">
             Monthly Payment ($)
           </label>
@@ -199,17 +207,19 @@ const LoanForm = () => {
             min="1"
             step="0.01"
             required
+            aria-describedby={errors.monthlyPayment ? "monthlyPayment-error" : undefined}
+            aria-invalid={!!errors.monthlyPayment}
           />
           {errors.monthlyPayment && (
-            <div className="loan-form-error">
+            <div className="loan-form-error" id="monthlyPayment-error" role="alert">
               {errors.monthlyPayment}
             </div>
           )}
-        </div>
+        </fieldset>
 
-        <div className="loan-form-group">
+        <fieldset className="loan-form-group">
           <label htmlFor="status" className="loan-form-label">
-            Status
+            Application Status
           </label>
           <input
             id="status"
@@ -218,21 +228,27 @@ const LoanForm = () => {
             value={status}
             className="loan-form-input"
             disabled
+            aria-describedby="status-description"
             style={{ backgroundColor: '#f8f9fa', color: '#6c757d' }}
           />
-          <small style={{ color: '#6c757d', fontSize: '0.8rem', marginTop: '0.25rem' }}>
+          <small id="status-description" style={{ color: '#6c757d', fontSize: '0.8rem', marginTop: '0.25rem' }}>
             Status will be set to "pending" automatically upon submission
           </small>
-        </div>
+        </fieldset>
 
-        <div className="loan-form-info">
-          <p>
-            <strong>Loan Range:</strong> $1,000 - $50,000<br/>
-            <strong>Interest Rate Range:</strong> 5.99% - 30% APR<br/>
-            <strong>Term Options:</strong> 12-84 months<br/>
-            <strong>Note:</strong> All loan applications start with "pending" status
-          </p>
-        </div>
+        <aside className="loan-form-info" role="complementary">
+          <h3 className="sr-only">Loan Information</h3>
+          <dl>
+            <dt><strong>Loan Range:</strong></dt>
+            <dd>$1,000 - $50,000</dd>
+            <dt><strong>Interest Rate Range:</strong></dt>
+            <dd>5.99% - 30% APR</dd>
+            <dt><strong>Term Options:</strong></dt>
+            <dd>12-84 months</dd>
+            <dt><strong>Note:</strong></dt>
+            <dd>All loan applications start with "pending" status</dd>
+          </dl>
+        </aside>
 
         <button type="submit" className="loan-form-button">
           Apply for Loan

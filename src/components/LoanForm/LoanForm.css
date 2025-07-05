@@ -1,43 +1,102 @@
+:root {
+  --loanform-primary: #0038a8;
+  --loanform-primary-hover: #0052cc;
+  --loanform-primary-light: #0066ff;
+  --loanform-accent: #a0c4ff;
+  --loanform-success: #22c55e;
+  --loanform-error: #dc2626;
+  --loanform-text-primary: #1e293b;
+  --loanform-text-secondary: #334155;
+  --loanform-text-muted: #64748b;
+  --loanform-text-placeholder: #94a3b8;
+  --loanform-surface: rgba(255, 255, 255, 0.95);
+  --loanform-surface-secondary: rgba(255, 255, 255, 0.85);
+  --loanform-surface-input: rgba(255, 255, 255, 0.7);
+  --loanform-surface-input-focus: rgba(255, 255, 255, 0.95);
+  --loanform-surface-accent: rgba(160, 196, 255, 0.08);
+  --loanform-border: rgba(255, 255, 255, 0.3);
+  --loanform-border-input: rgba(0, 56, 168, 0.2);
+  --loanform-border-accent: rgba(0, 56, 168, 0.1);
+  --loanform-shadow-light: rgba(0, 56, 168, 0.05);
+  --loanform-shadow-medium: rgba(0, 56, 168, 0.08);
+  --loanform-shadow-strong: rgba(0, 56, 168, 0.15);
+  --loanform-shadow-button: rgba(0, 56, 168, 0.3);
+  
+  --loanform-font-size-title: 2rem;
+  --loanform-font-size-subtitle: 1rem;
+  --loanform-font-size-label: 1.05rem;
+  --loanform-font-size-input: 1.05rem;
+  --loanform-font-size-button: 1.15rem;
+  --loanform-font-size-info: 1rem;
+  
+  --loanform-spacing-xs: 0.5rem;
+  --loanform-spacing-sm: 1rem;
+  --loanform-spacing-md: 1.5rem;
+  --loanform-spacing-lg: 2rem;
+  --loanform-spacing-xl: 2.5rem;
+  --loanform-spacing-2xl: 3rem;
+  
+  --loanform-radius-sm: 0.75rem;
+  --loanform-radius-md: 1rem;
+  --loanform-radius-lg: 1.5rem;
+  --loanform-radius-xl: 2rem;
+  
+  --loanform-transition-fast: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --loanform-transition-standard: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --loanform-transition-emphasized: 500ms cubic-bezier(0.05, 0.7, 0.1, 1);
+  
+  --loanform-blur-light: blur(10px);
+  --loanform-blur-strong: blur(20px);
+}
+
 .loan-form-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   min-height: 70vh;
-  padding: 2rem;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: var(--loanform-spacing-lg);
 }
 
 .loan-form {
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 100%);
-  backdrop-filter: blur(20px);
-  border-radius: 24px;
+  background: linear-gradient(145deg, var(--loanform-surface) 0%, var(--loanform-surface-secondary) 100%);
+  border-radius: var(--loanform-radius-xl);
   box-shadow: 
-    0 25px 45px rgba(0, 56, 168, 0.15),
-    0 10px 30px rgba(0, 0, 0, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.8),
-    inset 0 -1px 0 rgba(0, 56, 168, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  padding: 48px 40px;
-  max-width: 550px;
+    0 1.5625rem 2.8125rem var(--loanform-shadow-strong),
+    0 0.625rem 1.875rem rgba(0, 0, 0, 0.08),
+    inset 0 0.0625rem 0 rgba(255, 255, 255, 0.8),
+    inset 0 -0.0625rem 0 var(--loanform-border-accent);
+  border: 1px solid var(--loanform-border);
+  padding: 3rem 2.5rem;
+  max-width: 34.375rem;
   width: 100%;
-  color: #0038a8;
+  color: var(--loanform-primary);
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: 1.75rem;
   position: relative;
   overflow: hidden;
+  will-change: transform;
+}
+
+@supports (backdrop-filter: blur(20px)) {
+  .loan-form {
+    backdrop-filter: var(--loanform-blur-strong);
+  }
 }
 
 .loan-form::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url('data:image/svg+xml,<svg width="60" height="60" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse"><path d="M 30 0 L 0 0 0 30" fill="none" stroke="rgba(0,56,168,0.02)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
-  opacity: 0.6;
+  inset: 0;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 1.875rem,
+    var(--loanform-border-accent) 1.875rem,
+    var(--loanform-border-accent) 3.75rem
+  );
+  opacity: 0.3;
   pointer-events: none;
   z-index: 0;
 }
@@ -48,88 +107,103 @@
 }
 
 .loan-form-title {
-  font-size: 2rem;
+  font-size: var(--loanform-font-size-title);
   font-weight: 700;
-  margin-bottom: 1rem;
+  margin-bottom: var(--loanform-spacing-sm);
   text-align: center;
-  color: #0038a8;
-  letter-spacing: 0.5px;
-  text-shadow: 0 2px 4px rgba(0, 56, 168, 0.1);
+  color: var(--loanform-primary);
+  letter-spacing: 0.031rem;
+  text-shadow: 
+    0 0.125rem 0.25rem rgba(0, 56, 168, 0.1),
+    0 0.0625rem 0.125rem rgba(255, 255, 255, 0.8);
 }
 
 .loan-form-subtitle {
-  font-size: 1rem;
-  color: #666;
+  font-size: var(--loanform-font-size-subtitle);
+  color: var(--loanform-text-secondary);
   text-align: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--loanform-spacing-md);
   line-height: 1.5;
+  text-shadow: 0 0.0625rem 0.125rem rgba(255, 255, 255, 0.6);
 }
 
 .loan-form-group {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: var(--loanform-spacing-xs);
 }
 
 .loan-form-label {
-  font-size: 1.05rem;
+  font-size: var(--loanform-font-size-label);
   font-weight: 700;
-  color: #0038a8;
-  margin-bottom: 8px;
-  letter-spacing: 0.3px;
+  color: var(--loanform-primary);
+  margin-bottom: var(--loanform-spacing-xs);
+  letter-spacing: 0.019rem;
 }
 
 .loan-form-input {
-  padding: 16px 20px;
-  border-radius: 12px;
-  border: 2px solid rgba(0, 56, 168, 0.2);
-  background: rgba(255, 255, 255, 0.7);
-  color: #0038a8;
-  font-size: 1.05rem;
+  padding: 1rem 1.25rem;
+  border-radius: var(--loanform-radius-sm);
+  border: 0.125rem solid var(--loanform-border-input);
+  background: var(--loanform-surface-input);
+  color: var(--loanform-primary);
+  font-size: var(--loanform-font-size-input);
   font-weight: 500;
   outline: none;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
   box-shadow: 
-    0 4px 15px rgba(0, 56, 168, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.8);
-  letter-spacing: 0.3px;
+    0 0.25rem 0.9375rem var(--loanform-shadow-medium),
+    inset 0 0.0625rem 0 rgba(255, 255, 255, 0.8);
+  letter-spacing: 0.019rem;
+  transition: 
+    border-color var(--loanform-transition-standard),
+    background-color var(--loanform-transition-standard),
+    box-shadow var(--loanform-transition-standard);
+  will-change: border-color, background-color;
+}
+
+@supports (backdrop-filter: blur(10px)) {
+  .loan-form-input {
+    backdrop-filter: var(--loanform-blur-light);
+  }
 }
 
 .loan-form-input:focus {
-  border-color: #0038a8;
-  background: rgba(255, 255, 255, 0.95);
+  border-color: var(--loanform-primary);
+  background: var(--loanform-surface-input-focus);
   box-shadow: 
-    0 0 0 4px rgba(0, 56, 168, 0.15),
-    0 8px 25px rgba(0, 56, 168, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.9);
-  transform: translateY(-1px);
+    0 0 0 0.25rem rgba(0, 56, 168, 0.15),
+    0 0.5rem 1.5625rem var(--loanform-shadow-strong),
+    inset 0 0.0625rem 0 rgba(255, 255, 255, 0.9);
 }
 
 .loan-form-input::placeholder {
-  color: #999;
+  color: var(--loanform-text-placeholder);
   font-style: italic;
 }
 
 .loan-form-button {
-  background: linear-gradient(135deg, #0038a8 0%, #0052cc 100%);
+  background: linear-gradient(135deg, var(--loanform-primary) 0%, var(--loanform-primary-hover) 100%);
   color: white;
   font-weight: 700;
   border: none;
-  border-radius: 12px;
-  padding: 16px 32px;
-  margin-top: 20px;
+  border-radius: var(--loanform-radius-sm);
+  padding: var(--loanform-spacing-sm) var(--loanform-spacing-lg);
+  margin-top: var(--loanform-spacing-md);
   cursor: pointer;
-  font-size: 1.15rem;
+  font-size: var(--loanform-font-size-button);
   text-transform: uppercase;
-  letter-spacing: 1px;
-  transition: all 0.3s ease;
+  letter-spacing: 0.0625rem;
+  transition: 
+    transform var(--loanform-transition-standard),
+    box-shadow var(--loanform-transition-standard),
+    background var(--loanform-transition-standard);
   box-shadow: 
-    0 8px 25px rgba(0, 56, 168, 0.3),
-    0 4px 15px rgba(0, 56, 168, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    0 0.5rem 1.5625rem var(--loanform-shadow-button),
+    0 0.25rem 0.9375rem rgba(0, 56, 168, 0.2),
+    inset 0 0.0625rem 0 rgba(255, 255, 255, 0.2);
   position: relative;
   overflow: hidden;
+  will-change: transform, box-shadow;
 }
 
 .loan-form-button::before {
@@ -140,93 +214,131 @@
   width: 100%;
   height: 100%;
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.5s ease;
+  transition: left var(--loanform-transition-emphasized);
 }
 
 .loan-form-button:hover {
-  transform: translateY(-3px);
+  transform: translateY(-0.1875rem);
   box-shadow: 
-    0 12px 35px rgba(0, 56, 168, 0.4),
-    0 6px 20px rgba(0, 56, 168, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  background: linear-gradient(135deg, #0052cc 0%, #0066ff 100%);
+    0 0.75rem 2.1875rem rgba(0, 56, 168, 0.4),
+    0 0.375rem 1.25rem rgba(0, 56, 168, 0.3),
+    inset 0 0.0625rem 0 rgba(255, 255, 255, 0.3);
+  background: linear-gradient(135deg, var(--loanform-primary-hover) 0%, var(--loanform-primary-light) 100%);
 }
 
 .loan-form-button:hover::before {
   left: 100%;
 }
 
+.loan-form-button:focus-visible {
+  outline: 0.125rem solid var(--loanform-primary-light);
+  outline-offset: 0.125rem;
+}
+
 .loan-form-button:active {
-  transform: translateY(-1px);
+  transform: translateY(-0.0625rem);
   box-shadow: 
-    0 6px 20px rgba(0, 56, 168, 0.3),
-    0 3px 10px rgba(0, 56, 168, 0.2);
+    0 0.375rem 1.25rem rgba(0, 56, 168, 0.3),
+    0 0.1875rem 0.625rem rgba(0, 56, 168, 0.2);
 }
 
 .loan-form-button:disabled {
   cursor: not-allowed;
   opacity: 0.6;
   transform: none;
-  box-shadow: 0 2px 8px rgba(0, 56, 168, 0.1);
+  box-shadow: 0 0.125rem 0.5rem rgba(0, 56, 168, 0.1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loan-form-button {
+    transition: none;
+  }
+  
+  .loan-form-button::before {
+    transition: none;
+  }
+  
+  .loan-form-button:hover {
+    transform: none;
+  }
+  
+  .loan-form-button:active {
+    transform: none;
+  }
 }
 
 .loan-form-info {
-  background: rgba(160, 196, 255, 0.08);
-  border-left: 4px solid #0038a8;
-  padding: 16px 20px;
-  border-radius: 12px;
-  margin-top: 20px;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(0, 56, 168, 0.1);
-  box-shadow: 0 4px 15px rgba(0, 56, 168, 0.05);
+  background: var(--loanform-surface-accent);
+  border-left: 0.25rem solid var(--loanform-primary);
+  padding: var(--loanform-spacing-sm) var(--loanform-spacing-md);
+  border-radius: var(--loanform-radius-sm);
+  margin-top: var(--loanform-spacing-md);
+  border: 0.0625rem solid var(--loanform-border-accent);
+  box-shadow: 0 0.25rem 0.9375rem var(--loanform-shadow-light);
+}
+
+@supports (backdrop-filter: blur(10px)) {
+  .loan-form-info {
+    backdrop-filter: var(--loanform-blur-light);
+  }
 }
 
 .loan-form-info p {
   margin: 0;
-  font-size: 1rem;
-  color: #334155;
+  font-size: var(--loanform-font-size-info);
+  color: var(--loanform-text-secondary);
   line-height: 1.6;
   font-weight: 500;
 }
 
 .loan-form-success {
   background: linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(34, 197, 94, 0.08) 100%);
-  color: #0038a8;
-  padding: 16px 20px;
-  border-radius: 12px;
-  margin-bottom: 20px;
+  color: var(--loanform-primary);
+  padding: var(--loanform-spacing-sm) var(--loanform-spacing-md);
+  border-radius: var(--loanform-radius-sm);
+  margin-bottom: var(--loanform-spacing-md);
   text-align: center;
   font-weight: 700;
   font-size: 1.1rem;
-  backdrop-filter: blur(10px);
   box-shadow: 
-    0 8px 25px rgba(34, 197, 94, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.5);
-  border: 2px solid rgba(34, 197, 94, 0.3);
-  animation: slideInDown 0.6s ease-out;
+    0 0.5rem 1.5625rem rgba(34, 197, 94, 0.15),
+    inset 0 0.0625rem 0 rgba(255, 255, 255, 0.5);
+  border: 0.125rem solid rgba(34, 197, 94, 0.3);
+  animation: slideInDown 0.6s cubic-bezier(0.05, 0.7, 0.1, 1);
+}
+
+@supports (backdrop-filter: blur(10px)) {
+  .loan-form-success {
+    backdrop-filter: var(--loanform-blur-light);
+  }
 }
 
 .loan-form-error {
   background: linear-gradient(135deg, rgba(220, 38, 38, 0.15) 0%, rgba(220, 38, 38, 0.08) 100%);
-  color: #dc2626;
-  padding: 16px 20px;
-  border-radius: 12px;
-  margin-bottom: 20px;
+  color: var(--loanform-error);
+  padding: var(--loanform-spacing-sm) var(--loanform-spacing-md);
+  border-radius: var(--loanform-radius-sm);
+  margin-bottom: var(--loanform-spacing-md);
   text-align: center;
   font-weight: 700;
-  font-size: 1rem;
-  backdrop-filter: blur(10px);
+  font-size: var(--loanform-font-size-info);
   box-shadow: 
-    0 8px 25px rgba(220, 38, 38, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.5);
-  border: 2px solid rgba(220, 38, 38, 0.3);
+    0 0.5rem 1.5625rem rgba(220, 38, 38, 0.15),
+    inset 0 0.0625rem 0 rgba(255, 255, 255, 0.5);
+  border: 0.125rem solid rgba(220, 38, 38, 0.3);
   animation: shake 0.5s ease-in-out;
+}
+
+@supports (backdrop-filter: blur(10px)) {
+  .loan-form-error {
+    backdrop-filter: var(--loanform-blur-light);
+  }
 }
 
 @keyframes slideInDown {
   from { 
     opacity: 0; 
-    transform: translateY(-20px) scale(0.95);
+    transform: translateY(-1.25rem) scale(0.95);
   }
   to { 
     opacity: 1; 
@@ -236,18 +348,25 @@
 
 @keyframes shake {
   0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-5px); }
-  75% { transform: translateX(5px); }
+  25% { transform: translateX(-0.3125rem); }
+  75% { transform: translateX(0.3125rem); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loan-form-success,
+  .loan-form-error {
+    animation: none;
+  }
 }
 
 @media (max-width: 768px) {
   .loan-form-container {
-    padding: 1.5rem;
+    padding: var(--loanform-spacing-md);
     min-height: 60vh;
   }
   
   .loan-form {
-    padding: 36px 24px;
+    padding: 2.25rem 1.5rem;
     max-width: calc(100vw - 3rem);
   }
   
@@ -260,24 +379,24 @@
   }
   
   .loan-form-input {
-    padding: 14px 16px;
+    padding: 0.875rem 1rem;
     font-size: 1rem;
   }
   
   .loan-form-button {
-    padding: 14px 28px;
+    padding: 0.875rem 1.75rem;
     font-size: 1.05rem;
   }
 }
 
 @media (max-width: 480px) {
   .loan-form-container {
-    padding: 1rem;
+    padding: var(--loanform-spacing-sm);
   }
   
   .loan-form {
-    padding: 28px 20px;
-    border-radius: 20px;
+    padding: 1.75rem 1.25rem;
+    border-radius: var(--loanform-radius-md);
   }
   
   .loan-form-title {
@@ -285,16 +404,84 @@
   }
   
   .loan-form-input {
-    padding: 12px 14px;
+    padding: 0.75rem 0.875rem;
     font-size: 0.95rem;
   }
   
   .loan-form-button {
-    padding: 12px 24px;
+    padding: 0.75rem 1.5rem;
     font-size: 1rem;
   }
   
   .loan-form-group {
-    gap: 20px;
+    gap: var(--loanform-spacing-md);
+  }
+}
+
+.loan-form-input:focus-visible {
+  outline: 0.125rem solid var(--loanform-primary-light);
+  outline-offset: 0.125rem;
+}
+
+@media (max-width: 480px) {
+  .loan-form-input:focus-visible {
+    outline-offset: 0.0625rem;
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.loan-form fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.loan-form dl {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.loan-form dt {
+  display: inline;
+  font-weight: 700;
+}
+
+.loan-form dd {
+  display: inline;
+  margin: 0;
+  margin-left: 0.5rem;
+}
+
+.loan-form dt,
+.loan-form dd {
+  line-height: 1.6;
+}
+
+@media (max-width: 480px) {
+  .loan-form dl {
+    gap: 0.25rem;
+  }
+  
+  .loan-form dt,
+  .loan-form dd {
+    display: block;
+    margin: 0;
+  }
+  
+  .loan-form dd {
+    margin-bottom: 0.5rem;
   }
 }
