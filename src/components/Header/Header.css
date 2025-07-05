@@ -1,7 +1,5 @@
 .header-container {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
+  position: relative;
   width: 100%;
   background: linear-gradient(135deg, rgba(0, 56, 168, 0.95) 0%, rgba(6, 30, 78, 0.98) 100%);
   backdrop-filter: blur(20px);
